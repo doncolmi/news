@@ -3,6 +3,7 @@ const cron = require('node-cron');
 const axios = require('axios');
 const cheerio = require('cheerio');
 const iconv = require('iconv-lite');
+const mecab = require('mecab-ya');
 
 function ax(url) {
     return axios.get(url, {responseEncoding : 'binary', responseType : 'arraybuffer'});
@@ -41,15 +42,13 @@ const getImgs = (array) => {
 }
 
 cron.schedule('*/10 * * * * *', () => {
-    console.log("이거맞아 대성아");
-    const url = `https://news.naver.com/main/read.nhn?mode=LSD&mid=sec&sid1=105&oid=008&aid=0004376635`;
-
+    const url = `https://news.naver.com/main/read.nhn?mode=LSD&mid=shm&sid1=101&oid=003&aid=0009760801`;
+    let results = {};
     ax(url)
         .then(htmlDoc => {
-           let html = iconv.decode(htmlDoc.data, 'EUC-KR');
+            let html = iconv.decode(htmlDoc.data, 'EUC-KR');
             html = html.replace(`<span class=\"end_photo_org\">`, `HereImageDaeSeong<span class=\"end_photo_org\">`);
             const $ = cheerio.load(html);
-            console.log(html.toString());
             let col = $("div#main_content");
             let img = $("span.end_photo_org").children("img").toArray();
             let imgs = getImgs(img);
@@ -57,11 +56,11 @@ cron.schedule('*/10 * * * * *', () => {
             const result = {
                 title : col.find('h3#articleTitle').text().trim(),
                 date : col.find('div.sponsor span.t11').text().trim(),
-                content : col.find("div#articleBodyContents").text(),
+                content : col.find("div#articleBodyContents").text().trim(),
                 img : imgs,
             };
-            console.log(result);
-        })
+            results = result;
+        });
 })
 
 module.exports = cron;

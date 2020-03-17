@@ -5,7 +5,6 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
 const Router = require('./api/api');
-const cron = require('./services/test');
 const app = express();
 
 // view engine setup
