@@ -6,7 +6,7 @@ const main = {
        const url = "http://localhost:8080/user?uid=" + data;
        await axios.get(url)
            .then(res => {
-                result = res.data;
+               result = res.data;
            })
        return result;
    },
