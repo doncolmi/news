@@ -3,7 +3,6 @@ const cron = require('node-cron');
 const axios = require('axios');
 const cheerio = require('cheerio');
 const iconv = require('iconv-lite');
-const mecab = require('mecab-ya');
 
 function ax(url) {
     return axios.get(url, {responseEncoding : 'binary', responseType : 'arraybuffer'});
