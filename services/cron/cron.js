@@ -9,9 +9,9 @@ function ax(url) {
 }
 
 cron.schedule('*/10 * * * * *', () => {
+    let result = [];
     ax(`https://media.naver.com/channel/settings.nhn`)
         .then(htmlDoc => {
-            let result = [];
             const $ = cheerio.load(htmlDoc.data);
             const pressList = $("ul.ca_list").children("li");
             pressList.each(function(i, elem) {
@@ -21,8 +21,8 @@ cron.schedule('*/10 * * * * *', () => {
             });
         });
     axios.get('http://localhost:8080/press/all')
-        .then(res => {
-            console.log(res.data[0].name);
+
+
         });
 
 
