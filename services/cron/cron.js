@@ -20,9 +20,9 @@ cron.schedule('*/10 * * * * *', () => {
                 result[i] = [_name, _img];
             });
         });
-    ax('http://localhost:8080/press/all')
-        .then(html => {
-            console.log(html.data);
+    axios.get('http://localhost:8080/press/all')
+        .then(res => {
+            console.log(res.data[0].name);
         });
 
 
