@@ -2,9 +2,13 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const iconv = require('iconv-lite');
 
+const log = console.log;
+
+
 const ax = (url) => (axios.get(url, {responseEncoding : 'binary', responseType : 'arraybuffer'}));
 
 const updateNews = async () => {
+    console.time('for');
     const topic = [{
         id: 1,
         url : "100",
@@ -30,7 +34,8 @@ const updateNews = async () => {
         url : "110",
         name : "오피니언"
     }
-    ];
+    ]
+
 
     topic.forEach( item => {
         ax(`https://news.naver.com/main/list.nhn?mode=LSD&mid=sec&sid1=${item.url}&listType=title`)
@@ -56,7 +61,8 @@ const updateNews = async () => {
                         title : elem.title,
                         contents : contents[0],
                         news_dt : contents[1],
-                        img : contents[2]
+                        img : contents[2],
+                        href : elem.href,
                     };
                     axios({
                         method: 'post',
@@ -70,13 +76,14 @@ const updateNews = async () => {
                 }
             });
     });
+    console.timeEnd('for');
 }
 
 const checkNews = async (list) => {
     let i = 0;
     for(;i < list.length; i++) {
         const chk = await checkTitle(list[i].title);
-        if(chk > 1) break;
+        if(chk > 0) break;
     }
     return [...list].slice(0,++i);
 }
