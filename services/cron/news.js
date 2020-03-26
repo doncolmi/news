@@ -1,6 +1,7 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 const iconv = require('iconv-lite');
+const news = require('../../models/newsModel');
 
 const log = console.log;
 
@@ -64,15 +65,7 @@ const updateNews = async () => {
                         img : contents[2],
                         href : elem.href,
                     };
-                    axios({
-                        method: 'post',
-                        url: 'http://localhost:8080/news',
-                        data: data,
-                        headers: {
-                            dataType: 'json',
-                            contentType: 'application/json; charset=utf-8',
-                        }
-                    });
+                    await news(data).saveNews();
                 }
             });
     });
@@ -109,7 +102,7 @@ const getContents = async  (url) => {
             let imgs = getImgs(img);
 
             res.push(col.find("div#articleBodyContents").text().trim());
-            res.push(col.find('div.sponsor span.t11').text().trim());
+            res.push(col.find('div.sponsor span.t11:nth-child(1)').text().trim());
             res.push(imgs);
         });
     return res;
