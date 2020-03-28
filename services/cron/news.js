@@ -31,26 +31,28 @@ const topic = [{
     name : "오피니언"
 }];
 
-// const replaceText = [
-//     "<!-- 본문 내용 -->","<!-- TV플레이어 -->","<!-- // TV플레이어 -->",
-//     `<script type='text/javascript"`, `// flash 오류를 우회하기 위한 함수 추가`,
-//     `function _flash_removeCallback() {}`, `</script`, `>>`
-// ];
-//
-// const replaceBlank = (content, text) => {
-//     return content.replace(text, "");
-// }
-// const replaceContent = (content) => {
-//     let result = content;
-//     const spliceNum = result.indexOf('<span');
-//     if(spliceNum !== -1) {
-//         result.splice(0, spliceNum);
-//     }
-//     for(const item of replaceText) {
-//         result = replaceBlank(result, item);
-//     }
-//     return result;
-// }
+const replaceText = [
+    "<!-- 본문 내용 -->","<!-- TV플레이어 -->","<!-- // TV플레이어 -->",
+    `<script type="text/javascript">`, `// flash 오류를 우회하기 위한 함수 추가`,
+    `function _flash_removeCallback() {}`, `</script>`, "<!-- // 본문 내용 -->"
+];
+
+const replaceBlank = (content, text) => {
+    return content.replace(text, "");
+}
+const replaceContent = (content) => {
+    let result = content;
+    if(result) {
+        for(const item of replaceText) {
+            result = replaceBlank(result, item);
+        }
+    } else { log("얘 Null인데요?"); }
+    return result;
+}
+
+const headers = {
+    'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4097.0 Safari/537.36'
+};
 
 const ax = (url) => (axios.get(url, {responseEncoding : 'binary', responseType : 'arraybuffer'}));
 
@@ -63,7 +65,6 @@ const updateNews = async () => {
                 const list = $("ul.type02").children("li");
 
                 let pressList = [];
-
                 await list.each(function(i, elem) {
                     ress[i] = {
                         title : $(this).find("a").text().trim(),
@@ -76,7 +77,9 @@ const updateNews = async () => {
 
                 await updatePress(new Set([...pressList])).catch(err => console.log(err));
                 const update = await checkNews(ress);
-                await saveNews(update, item.id).catch(err => console.log(err));
+                if(!(update.length < 1)) {
+                    await saveNews(update, item.id).catch(err => console.log(err));
+                }
             });
     }
 }
@@ -84,19 +87,17 @@ const updateNews = async () => {
 const checkNews = async (list) => {
     let i = 0;
     for(;i < list.length; i++) {
-        const chk = await checkTitle(list[i].title);
+        const chk = await cntHref(list[i].href);
         if(chk > 0) break;
     }
+    log("checkNews의 i값은 : " + i);
+    if(i === 0) { return [...list].slice(0,i)};
     return [...list].slice(0,++i);
 }
 
-const checkTitle = async (title) => {
-    let result;
-    await axios.get('http://localhost:8080/news?title=' + encodeURI(title))
-        .then(res => {
-            result = res.data;
-        });
-    return result;
+const cntHref = async (href) => {
+    const res = await axios.get('http://localhost:8080/news?href=' + href.replace(/&/g,"%26"));
+    return res.data;
 }
 
 const getContents = async  (url) => {
@@ -106,15 +107,14 @@ const getContents = async  (url) => {
             let html = iconv.decode(htmlDoc.data, 'EUC-KR');
             const $ = cheerio.load(html);
             let col = $("div#main_content");
-            let content = col.find("div.articleBodyContents").text();
-            if(content) {
-                content = col.find("div.news_end").text();
-            }
-            if(content) {
-                content = col.find("div._article_body_contents").text();
-            }
-            res.push(content);
-            res.push(col.find('div.sponsor span.t11:nth-child(1)').text().trim());
+
+            let content = col.find("div#articleBodyContents").html();
+            if(content === null || content === undefined) {content = col.find("div#newsEndContents").html();};
+            let date = col.find('div.sponsor span.t11:nth-child(1)').text().trim();
+            if(date === null || date === undefined) {date = col.find('div.sponsor span.t11').text().trim()};
+
+            res.push(replaceContent(content));
+            res.push(date);
         });
     return res;
 }

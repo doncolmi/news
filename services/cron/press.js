@@ -11,7 +11,6 @@ const updatePress = async (items) => {
     for(let i = 0; i < getPress.data.length; i++) {
         pressNames.push(getPress.data[i].name);
     }
-    console.log("1");
 
     for(const item of items){
         const index = pressNames.indexOf(item);
