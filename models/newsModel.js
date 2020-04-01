@@ -2,13 +2,13 @@ const axios = require('axios');
 const press = require('./pressModel');
 
 class News {
-    constructor(news) {
-        this.press = news.press;
-        this.topic = news.topic;
-        this.title = news.title;
-        this.contents = news.contents;
-        this.news_dt = news.news_dt;
-        this.href = news.href;
+    constructor(press, topic, title, contents, news_dt, href) {
+        typeof press === "string" ? this.press = press : console.log("press 오류");
+        typeof topic === "number" ? this.topic = topic : console.log("topic 오류");
+        typeof title === "string" ? this.title = title : console.log("title 오류");
+        typeof contents === "string" ? this.contents = contents : console.log("contents 오류");
+        typeof news_dt === "string" ? this.news_dt = news_dt : console.log("news_dt 오류");
+        typeof href === "string" ? this.href = href : console.log("href 오류");
     }
 
     saveNews() {
@@ -24,4 +24,4 @@ class News {
     }
 }
 
-module.exports = news => new News(news);
+module.exports = (press, topic, title, contents, news_dt, href) => new News(press, topic, title, contents, news_dt, href);

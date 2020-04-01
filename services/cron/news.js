@@ -122,17 +122,7 @@ const getContents = async  (url) => {
 const saveNews = async (news, topic) => {
     for(const elem of news) {
         const contents = await getContents(elem.href);
-
-        const data = {
-            press : elem.press,
-            topic : topic,
-            title : elem.title,
-            contents : contents[0],
-            news_dt : contents[1],
-            href : elem.href,
-        };
-
-        await newsModel(data).saveNews();
+        await newsModel(elem.press, topic, elem.title, contents[0], contents[1], elem.href).saveNews();
     }
 }
 module.exports = updateNews;

@@ -1,6 +1,6 @@
 const cron = require('node-cron');
-const updatePress = require('./press');
 const updateNews = require('./news');
+const updateNewsEng = require('./newsEng');
 
 const statusChk = require('./statusChk');
 
