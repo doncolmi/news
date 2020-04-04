@@ -1,16 +1,15 @@
 doctype html
 html
     head
-        title wow
+        title news
         link(rel='stylesheet', href='/css/style.css')
     body
-        div
-            input#UID(type="text")
-            br
-            input#PASSWORD(type="password")
-            br
-            input#EMAIL(type="email")
-            br
-            button#send 하이루
-        script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js")
+        div.wrapper
+            div.contents
+                div.title 소 식
+                div.discription 1. 멀리 떨어져 있는 사람의 사정을 알리는 말이나 글.
+                div.discription 2. 천지의 시운이 끊임없이 변화하고 순환하는 일.
+                div
+                    button 로그인
+                    button 더 알아보기
         script(src="/js/index.js")
