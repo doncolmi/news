@@ -3,10 +3,15 @@
 body {
   margin:0px;
   font-family: 'Noto Serif KR', serif;
-  overflow : hidden;
   background-color: black;
+  overflow: hidden;
 }
 
+.find {
+  font-family: Arial;
+  font-size: 1.5vh;
+  text-decoration-line: underline;
+}
 .wrapper{
   width: 100%;
   height: 100vh;
@@ -28,9 +33,28 @@ body {
 .contents .discription{
   font-size: 2vh;
 }
-#bar{
-  visibility: visible;
+
+.welcome {
+  width: 100%;
+  height: 100vh;
+  background: url("/img/bg.png");
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-button{
-  width:50%;
+
+.welcomes {
+  width: 100%;
+  height: 100vh;
+  background: url("/img/bg.png");
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wTitle {
+  font-size : 8vh;
+  text-align: center;
 }

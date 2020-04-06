@@ -1,3 +1,33 @@
+const down = (elem) => {window.scroll({behavior:"smooth", left : 0, top : elem.offsetTop})};
+
+const main = {
+    init : function() {
+        const _this = this;
+        document.querySelector('#downInfo').onclick = function() {
+            _this.downInfo();
+        };
+        document.querySelector('#upLogin').onclick = function() {
+            _this.upLogin();
+        };
+        document.querySelector('#dd').onclick = function() {
+            _this.upLogin();
+        };
+        document.querySelector('#join').onclick = function() {
+            _this.join();
+        }
+    },
+    downInfo : function() {
+        down(document.getElementsByClassName('welcome')[0]);
+    },
+    upLogin : function() {
+        down(document.getElementsByClassName('wrapper')[0]);
+    },
+    join : function() {
+        down(document.getElementsByClassName('welcomes')[0]);
+    }
+}
+
+main.init();
 
 // const main = {
 //     init : function() {

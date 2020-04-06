@@ -2,14 +2,57 @@ doctype html
 html
     head
         title news
+        link(rel='stylesheet', href='/vendor/bootstrap/css/bootstrap.css')
         link(rel='stylesheet', href='/css/style.css')
     body
         div.wrapper
             div.contents
                 div.title 소 식
                 div.discription 1. 멀리 떨어져 있는 사람의 사정을 알리는 말이나 글.
-                div.discription 2. 천지의 시운이 끊임없이 변화하고 순환하는 일.
+                div.mb-5.discription 2. 천지의 시운이 끊임없이 변화하고 순환하는 일.
                 div
-                    button 로그인
-                    button 더 알아보기
+                    div.mb-2.w-100.btn.btn-secondary(data-toggle="modal", data-target="#login") 로그인
+                    div.w-100.btn.btn-dark#downInfo 더 알아보기
+        div.welcome
+            div.contents
+                div.wTitle.mb-5 소식은 어떤 사이트인가요?
+                div.discription
+                    p 소식은 포털사이트에서 가져온 뉴스 중 자신이 원하는 언론사 또는 주제를 선정해 피드를 받아 볼 수 있는 사이트입니다.
+                div(style="text-align: center")
+                    div.w-50.btn.btn-secondary.mb-2(style="margin: 0 auto") 로그인
+                    br
+                    div.w-50.btn.btn-dark#upLogin(style="margin: 0 auto") 위로 올라가기
+        div.welcomes
+            div.contents
+                div.wTitle.mb-5 회원가입
+                div.discription
+                    p 암튼 할거임 ㅋㅋ
+                div(style="text-align: center")
+                    div.w-50.btn.btn-secondary.mb-2(style="margin: 0 auto") 로그인
+                    br
+                    div.w-50.btn.btn-dark#dd(style="margin: 0 auto") 위로 올라가기
+        div.modal.fade#login
+            div.modal-dialog.modal-xl
+                div.modal-content
+                    div.modal-body
+                        div
+                            button.close(type="button",data-dismiss="modal") &times;
+                        div.d-flex
+                            div.w-50.text-center(style="border-right: 1px solid brown") 로그인
+                                div.d-flex.flex-column.justify-content-center.align-items-center.mt-5
+                                    div.form-group.text-left.w-75
+                                        label(for="id") 아이디 :
+                                        input.form-control#id(type="text")
+                                    div.form-group.text-left.w-75
+                                        label(for="pw") 비밀번호 :
+                                        input.form-control#pw(type="password")
+                                    div.w-75.btn.btn-primary.mb-1 로그인
+                                    div.mb-5
+                                        a.find(href="#") 아이디 / 비밀번호 찾기
+                            div.w-50.text-center.d-flex.justify-content-center.align-items-center
+                                div.d-flex.flex-column.justify-content-center.align-items-center
+                                    p.mb-3 혹시 계정이 없으신가요?
+                                    div.w-100.btn.btn-info(data-dismiss="modal")#join 회원가입하기
+        script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js")
+        script(src="/vendor/bootstrap/js/bootstrap.js")
         script(src="/js/index.js")
