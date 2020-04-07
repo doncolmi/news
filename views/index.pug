@@ -23,20 +23,36 @@ html
                     br
                     div.w-50.btn.btn-dark#upLogin(style="margin: 0 auto") 위로 올라가기
         div.welcomes
-            div.contents
-                div.wTitle.mb-5 회원가입
-                div.discription
-                    p 암튼 할거임 ㅋㅋ
-                div(style="text-align: center")
-                    div.w-50.btn.btn-secondary.mb-2(style="margin: 0 auto") 로그인
-                    br
-                    div.w-50.btn.btn-dark#dd(style="margin: 0 auto") 위로 올라가기
+            div.join
+                div.jTitle
+                    h2 회원가입
+                    hr
+                div.forms
+                    div.form-group
+                        label(for="jId") 아이디
+                        input.form-control#jId(type="text", placeholder="6~20자 이내의 영문 및 숫자를 작성해주세요.")
+                        p.joinText
+                    div.form-group
+                        label(for="jPw") 비밀번호
+                        input.form-control#jPw(type="password", placeholder="6~20자 이내의 비밀번호를 작성해주세요.")
+                        p.joinText
+                    div.form-group
+                        label(for="jPwCheck") 비밀번호 확인
+                        input.form-control#jPwCheck(type="password", placeholder="동일한 비밀번호를 작성해주세요.")
+                        p.joinText
+                    div.form-group
+                        label(for="jEmail") 이메일
+                        input.form-control#jEmail(type="email", placeholder="이메일을 작성해주세요. ex) exmaple@example.co.kr")
+                        p.joinText
+                div.buttons.pt-2
+                    button.btn.btn-primary.mb-1#join 가입하기
+                    button.btn.btn-info#joinBack 돌아가기
         div.modal.fade#login
             div.modal-dialog.modal-xl
                 div.modal-content
                     div.modal-body
                         div
-                            button.close(type="button",data-dismiss="modal") &times;
+                            button.close(type="button", data-dismiss="modal") &times;
                         div.d-flex
                             div.w-50.text-center(style="border-right: 1px solid brown") 로그인
                                 div.d-flex.flex-column.justify-content-center.align-items-center.mt-5
@@ -52,7 +68,7 @@ html
                             div.w-50.text-center.d-flex.justify-content-center.align-items-center
                                 div.d-flex.flex-column.justify-content-center.align-items-center
                                     p.mb-3 혹시 계정이 없으신가요?
-                                    div.w-100.btn.btn-info(data-dismiss="modal")#join 회원가입하기
+                                    div.w-100.btn.btn-info(data-dismiss="modal")#goJoin 회원가입하기
         script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js")
         script(src="/vendor/bootstrap/js/bootstrap.js")
         script(src="/js/index.js")

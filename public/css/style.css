@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Noto+Serif+KR&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap');
 
 body {
   margin:0px;
@@ -57,4 +58,34 @@ body {
 .wTitle {
   font-size : 8vh;
   text-align: center;
+}
+
+.join {
+  width:50%;
+  background-color: white;
+  border-radius: 5px;
+  padding : 2% 2%;
+}
+.jTitle {
+  text-align: center;
+  font-weight: bold;
+}
+.jTitle hr {
+  width: 90%;
+  margin-bottom: 3%;
+}
+.forms {
+  margin: 0 auto;
+  width: 70%;
+}
+.buttons {
+  margin: 0 auto;
+  text-align: center;
+}
+.buttons button {
+  width: 70%;
+}
+.joinText {
+  font-weight: bold;
+  color: red;
 }

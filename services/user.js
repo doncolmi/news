@@ -1,4 +1,5 @@
 const axios = require("axios");
+const joinUser = require("../models/user/joinModel");
 
 const main = {
    getUser : async function(data) {
@@ -10,6 +11,11 @@ const main = {
            })
        return result;
    },
+    join : async (data) => {
+       const url = "http://localshot:8080/user";
+       const encPw = "await 암호화 만들기"; // todo : 암호화 만들기
+       return joinUser(data.id, encPw, data.email).saveUser();
+    }
 }
 module.exports = main;
 
