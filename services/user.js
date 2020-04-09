@@ -1,21 +1,11 @@
-const axios = require("axios");
 const joinUser = require("../models/user/joinModel");
+const encrypt = require("./util/encrypt");
 
 const main = {
-   getUser : async function(data) {
-       let result;
-       const url = "http://localhost:8080/user?uid=" + data;
-       await axios.get(url)
-           .then(res => {
-               result = res.data;
-           })
-       return result;
-   },
     join : async (data) => {
-       const url = "http://localshot:8080/user";
-       const encPw = "await 암호화 만들기"; // todo : 암호화 만들기
-       return joinUser(data.id, encPw, data.email).saveUser();
-    }
+       const encPw = await encrypt(data.pw);
+       return await joinUser(data.id, encPw, data.email).saveUser();
+    },
 }
 module.exports = main;
 

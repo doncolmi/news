@@ -81,19 +81,25 @@ const main = {
 
         if(val(id.value, /^[A-Za-z0-9_\-]{6,20}$/) && val(pw.value, /^[A-Za-z0-9_\-]{6,20}$/) &&
             val(email.value, /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/) &&
-            pw.value === pwCheck.value) {
+            pw.value === pwCheck.value && chk(email.value, 'email') && chk(id.value, 'id')) {
             const data = {
                 id : id.value,
                 pw : pw.value,
                 email : email.value
             }
             $.ajax({
-                type: 'POST',
+                type: 'post',
                 url: '/user',
-                data: data
+                data: data,
             }).then(function(res) {
-                alert("가입이 완료 되었습니다.");
-                location.href("/");
+                console.log(res + "...");
+                if(res > 0) {
+                    location.href = "/";
+                    alert("회원가입 완료되었습니다.");
+                } else {
+                    alert("서버 오류입니다.");
+                    console.log(res);
+                }
             }, function(error) {
                 alert("서버 오류입니다.");
                 console.log(error);
@@ -101,6 +107,7 @@ const main = {
         }
     }
 };
+// todo : 중복 검사 만들어야합니다...
 
 clearData();
 main.init();

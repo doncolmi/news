@@ -9,12 +9,15 @@ class joinUser {
         typeof email === 'string' ? this.email = email : nullPut(this.email, 'email')
     }
 
-    saveUser() {
-        const result = axios.post('localhost:8080/user', JSON.stringify(this), {
-            headers : {
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-            }
+    async saveUser() {
+        const result = await axios({
+            method: 'post',
+            headers: {
+                'dataType': 'json',
+                'Content-type' : 'application/json; charset=utf-8',
+            },
+            url: 'http://localhost:8080/user',
+            data: JSON.stringify(this),
         }).catch(err => console.log(err));
         return result.data;
     }
