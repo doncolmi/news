@@ -1,13 +1,15 @@
 const joinUser = require("../models/user/joinModel");
 const encrypt = require("./util/encrypt");
+const axios = require("axios");
 
 const main = {
     join : async (data) => {
        const encPw = await encrypt(data.pw);
        return await joinUser(data.id, encPw, data.email).saveUser();
     },
+    vali : async (data, type) => {
+        const res = await axios.get('http://localhost:8080/user?data=' + data + "&type=" + type);
+        return res.data;
+    }
 }
 module.exports = main;
-
-// todo : 이제 프론트 만들어야한다...
-// todo : 그거 말고도 유저 관련된 부분 만들자.
