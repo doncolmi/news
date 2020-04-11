@@ -3,10 +3,11 @@ const axios = require('axios');
 const nullPut = (obj, text) => {obj = null; console.log(text + " 오류입니다.")};
 
 class joinUser {
-    constructor(id, pw, email) {
+    constructor(id, pw, email, salt) {
         typeof id === 'string' ? this.id = id : nullPut(this.id, 'id')
         typeof pw === 'string' ? this.pw = pw : nullPut(this.pw, 'pw')
         typeof email === 'string' ? this.email = email : nullPut(this.email, 'email')
+        typeof salt === 'string' ? this.salt = salt : nullPut(this.salt, 'salt');
     }
 
     async saveUser() {
@@ -23,4 +24,4 @@ class joinUser {
     }
 }
 
-module.exports = (id, pw, email) => new joinUser(id, pw, email);
+module.exports = (id, pw, email, salt) => new joinUser(id, pw, email, salt);

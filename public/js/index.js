@@ -8,44 +8,12 @@ const clearData = () => {
     }
 };
 
-const val = (id, code) => {
-    if(code.test(id)) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
 const warn = (item, i, text) => {
     item.style.border = "2px solid red";
     item.focus();
     document.getElementsByClassName('joinText')[i].innerHTML = text;
 }
 
-const chkId = (id) => {
-    $.ajax({
-        type: 'get',
-        url: '/user?data=' + id +"&type=id",
-    }).then(function(res) {
-        console.log(res);
-        console.log(res === 0);
-        return res === 0;
-    }, function(error) {
-        return false;
-    });
-};
-
-const chkEmail = (email) => {
-    $.ajax({
-        type: 'get',
-        url: '/user?data=' + email +"&type=email",
-    }).then(function(res) {
-        console.log(typeof res);
-        return res === 0;
-    }, function(error) {
-        return false;
-    });
-};
 
 const main = {
     init : function() {
@@ -64,86 +32,115 @@ const main = {
             clearData();
         };
 
-        document.querySelector('#join').onclick = function() {
-            _this.join();
+        document.querySelector('#join').onclick = async function() {
+            await _this.idCheck();
+            await _this.pwCheck();
+            await _this.emailCheck();
+            if(idc && pwc && emailc) {
+                await _this.join();
+            }
         }
     },
-    join : function() {
+    idCheck : async function() {
         const id = document.getElementById('jId');
-        const pw = document.getElementById('jPw');
-        const pwCheck = document.getElementById('jPwCheck');
-        const email = document.getElementById('jEmail');
-
-        if (!val(id.value, /^[A-Za-z0-9_\-]{6,20}$/)) {
+        const pattern = /^[A-Za-z0-9_\-]{6,20}$/;
+        if(!(pattern.test(id.value))) {
             const text = "<small>아이디는 6~20자 이내의 영문 및 숫자만 작성해야 합니다.</small>";
             warn(id, 0, text);
-        } else if(!chkId(id.value)) {
-            const text = "<small>중복된 아이디입니다.</small>";
-            warn(id, 0, text);
+            idc = false;
         } else {
-            id.style.border = "2px solid blue";
-            document.getElementsByClassName('joinText')[0].innerHTML = ``;
-        }
-
-        if (pw.value === pwCheck.value) {
-            pwCheck.style.border = `1px solid blue`;
-            document.getElementsByClassName('joinText')[2].innerHTML = ``;
-            if (!val(pw.value, /^[A-Za-z0-9_\-]{6,20}$/)) {
-                const text = `<small>비밀번호는 6~20자 이내의 영문 및 숫자를 혼용해 작성해야 합니다.</small>`;
-                warn(pw, 1, text);
-            } else {
-                pw.style.border = `1px solid blue`;
-                document.getElementsByClassName('joinText')[1].innerHTML = ``;
-            }
-        } else {
-            const text = `<small>비밀번호가 일치하지 않습니다.</small>`;
-            warn(pwCheck, 2, text);
-        }
-
-        if (!val(email.value, /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/)) {
-            const text = `<small>이메일 형식이 아닙니다.</small>`;
-            warn(email, 3, text);
-        } else if(!chkEmail(email.value)) {
-            const text = `<small>중복된 이메일입니다.</small>`;
-            warn(email, 3, text);
-        } else {
-            email.style.border = `1px solid blue`;
-            document.getElementsByClassName('joinText')[3].innerHTML = ``;
-        }
-
-        console.log(val(id.value, /^[A-Za-z0-9_\-]{6,20}$/) && val(pw.value, /^[A-Za-z0-9_\-]{6,20}$/) &&
-            val(email.value, /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/) &&
-            pw.value === pwCheck.value && chkEmail(email.value) && chkId(id.value));
-
-        if(val(id.value, /^[A-Za-z0-9_\-]{6,20}$/) && val(pw.value, /^[A-Za-z0-9_\-]{6,20}$/) &&
-            val(email.value, /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/) &&
-            pw.value === pwCheck.value && chkEmail(email.value) && chkId(id.value)) {
-            const data = {
-                id : id.value,
-                pw : pw.value,
-                email : email.value
-            }
-            $.ajax({
-                type: 'post',
-                url: '/user',
-                data: data,
+            await $.ajax({
+                type: 'get',
+                url: '/user?data=' + id.value +"&type=id",
             }).then(function(res) {
-                if(res > 0) {
-                    location.href = "/";
-                    alert("회원가입 완료되었습니다.");
+                if(res === 0) {
+                    id.style.border = "2px solid blue";
+                    document.getElementsByClassName('joinText')[0].innerHTML = ``;
+                    idc = true;
                 } else {
-                    alert("서버 오류입니다.");
-                    console.log(res);
+                    const text = "<small>중복된 아이디 입니다.</small>";
+                    warn(id, 0, text);
+                    idc = false;
                 }
             }, function(error) {
-                alert("서버 오류입니다.");
-                console.log(error);
+                idc = false;
             });
         }
+    },
+    pwCheck : async function() {
+        const pw = document.getElementById('jPw');
+        const pwCh = document.getElementById('jPwCheck');
+        const pattern = /^[A-Za-z0-9_\-]{6,20}$/;
+
+        if(pw.value === pwCh.value) {
+            pwCh.style.border = "2px solid blue";
+            document.getElementsByClassName('joinText')[2].innerHTML = ``;
+            if(!pattern.test(pw.value)) {
+                const text = "<small>비밀번호는 6~20자 이내의 영문 및 숫자를 혼용해 작성해야 합니다.</small>";
+                warn(pw, 1, text);
+                pwc = false;
+            } else {
+                pw.style.border = "2px solid blue";
+                document.getElementsByClassName('joinText')[1].innerHTML = ``;
+                pwc = true;
+            }
+        } else {
+            const text = "<small>위 비밀번호와 일치하지 않습니다.</small>";
+            warn(pwCh, 2, text);
+            pwc = false;
+        }
+    },
+    emailCheck : async function() {
+        const email = document.getElementById('jEmail');
+        const pattern = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+        if(!(pattern.test(email.value))) {
+            const text = "<small>올바른 이메일 형식이 아닙니다.</small>";
+            warn(email, 3, text);
+            emailc = false;
+        } else {
+            await $.ajax({
+                type: 'get',
+                url: '/user?data=' + email.value +"&type=email",
+            }).then(function(res) {
+                if(res === 0) {
+                    email.style.border = "2px solid blue";
+                    document.getElementsByClassName('joinText')[3].innerHTML = ``;
+                    emailc = true;
+                } else {
+                    const text = "<small>중복된 이메일 입니다.</small>";
+                    warn(email, 3, text);
+                    emailc = false;
+                }
+            }, function(error) {
+                emailc = false;
+            });
+        }
+    },
+    join : async function() {
+        const data = {
+            id : document.getElementById('jId').value,
+            pw : document.getElementById('jPw').value,
+            email : document.getElementById('jEmail').value
+        }
+        $.ajax({
+            type: 'post',
+            url: '/user',
+            data: data,
+        }).then(function(res) {
+            if(res > 0) {
+                location.href = "/";
+                alert("회원가입 완료 되었습니다.");
+            } else {
+                alert("서버 오류 입니다.");
+                console.log(res);
+            }
+        }, function(error) {
+            alert("서버 오류 입니다.");
+            console.log(error);
+        });
     }
 };
-// todo : 중복 검사 만들어야합니다...
-
+let idc = false; let pwc = false; let emailc = false;
 clearData();
 main.init();
 
