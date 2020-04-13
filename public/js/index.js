@@ -152,13 +152,17 @@ const main = {
             url: '/user/login',
             data: data,
         }).then(function (res) {
+            console.log("에러인데엥");
             if(res) {
                 location.href = "/get";
                 alert("로그인완료");
             } else {
                 alert("장난하냐?");
             }
-        });
+        }), function (error) {
+            alert("아이디 혹은 비밀번호가 맞지 않습니다.");
+            clearData();
+        };
     }
 };
 let idc = false; let pwc = false; let emailc = false;

@@ -24,7 +24,10 @@ const main = {
             },
             url: 'http://localhost:8080/login',
             data: JSON.stringify(item),
-        }).catch(err => console.log(err));
+        }).catch((err) => {
+            console.log(err);
+            return 0;
+        });
         return result.data;
     },
 
