@@ -27,6 +27,9 @@ const main = {
         document.querySelector('#goJoin').onclick = function() {
             move(document.getElementsByClassName('welcomes')[0]);
         };
+        document.querySelector('#log').onclick = function() {
+            _this.login();
+        };
         document.querySelector('#joinBack').onclick = function() {
             move(document.getElementsByClassName('wrapper')[0]);
             clearData();
@@ -137,6 +140,24 @@ const main = {
         }, function(error) {
             alert("서버 오류 입니다.");
             console.log(error);
+        });
+    },
+    login : async function() {
+        const data = {
+            id : document.getElementById('id').value,
+            pw : document.getElementById('pw').value
+        }
+        $.ajax({
+            type: 'post',
+            url: '/user/login',
+            data: data,
+        }).then(function (res) {
+            if(res) {
+                location.href = "/get";
+                alert("로그인완료");
+            } else {
+                alert("장난하냐?");
+            }
         });
     }
 };

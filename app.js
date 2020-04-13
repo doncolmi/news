@@ -4,9 +4,12 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 // const cron = require('./services/cron/cron');
-
+const redis = require('./config/redis');
 const Router = require('./api/api');
 const app = express();
+
+// Redis
+app.use(redis);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
