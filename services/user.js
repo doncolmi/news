@@ -30,7 +30,22 @@ const main = {
         });
         return result.data;
     },
-
-
+    authCheck : async (id) => {
+        const res = await axios.get("http://localhost:8080/auth?data=" + id)
+        return res.data;
+    },
+    getEmail : async (id) => {
+        try {
+            const res = await axios.get("http://localhost:8080/email?data=" + id);
+            return res.data;
+        } catch (e) {
+            console.log(e);
+            return "None";
+        }
+    },
+    auth : async (code) => {
+        const res = await axios.get("http://localhost:8080/chkCode?code=" + code);
+        return res.data;
+    }
 }
 module.exports = main;

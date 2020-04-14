@@ -1,4 +1,5 @@
 const axios = require('axios');
+const email = require('../../services/util/mail');
 
 const nullPut = (obj, text) => {obj = null; console.log(text + " 오류입니다.")};
 
@@ -11,7 +12,8 @@ class joinUser {
     }
 
     async saveUser() {
-        const result = await axios({
+        let result;
+        await axios({
             method: 'post',
             headers: {
                 'dataType': 'json',
@@ -19,8 +21,21 @@ class joinUser {
             },
             url: 'http://localhost:8080/user',
             data: JSON.stringify(this),
-        }).catch(err => console.log(err));
-        return result.data;
+        })
+            .then(async (res) => {
+                const code = await axios.get('http://localhost:8080/code?data=' + this.id);
+                try{
+                    await email(this.email, code.data);
+                } catch (e) {
+                    console.log(e);
+                    console.log("이메일 발송 실패");
+                };
+                console.log(res);
+                result = await res.data;
+            })
+            .catch(err => console.log(err));
+
+        return result;
     }
 }
 
