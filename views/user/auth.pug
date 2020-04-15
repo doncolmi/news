@@ -3,6 +3,19 @@ html
     head
         title wow
         link(rel='stylesheet', href='/vendor/bootstrap/css/bootstrap.css')
-        link(rel='stylesheet', href='/css/user.css')
+        link(rel='stylesheet', href='/css/auth.css')
     body
-        p 아직 인증을 받지 못했습니다. 입력하신 이메일인 #{email}을 확인해주세요!
+        .bam #{email}
+        .wrapper
+            .contents
+                h1.mb-5 혹시 이메일 인증 하셨나요?
+                img.mb-2(src='/img/email.png')
+                div
+                    p
+                        | 회원님의 이메일은 #{email} 입니다.
+                        br
+                        | 이메일이 오지 않았다면 아래 버튼을 눌러주세요
+                    button.btn.btn-primary.w-100#mail 메일 재전송
+        script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js")
+        script(src="/vendor/bootstrap/js/bootstrap.js")
+        script(src='/js/auth.js')

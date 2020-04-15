@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const flash = require('connect-flash');
 // const cron = require('./services/cron/cron');
 const redis = require('./config/redis');
 const Router = require('./api/api');
@@ -10,6 +11,7 @@ const app = express();
 
 // Redis
 app.use(redis);
+app.use(flash());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

@@ -27,7 +27,7 @@ const main = {
         document.querySelector('#goJoin').onclick = function() {
             move(document.getElementsByClassName('welcomes')[0]);
         };
-        document.querySelector('#log').onclick = function() {
+        document.querySelector('#log').onclick = async function() {
             _this.login();
         };
         document.querySelector('#joinBack').onclick = function() {
@@ -149,7 +149,7 @@ const main = {
         }
         $.ajax({
             type: 'post',
-            url: '/user/login',
+            url: '/login',
             data: data,
         }).then(function (res) {
             console.log("에러인데엥");

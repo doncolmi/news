@@ -1,6 +1,7 @@
 const joinUser = require("../models/user/joinModel");
 const encrypt = require("./util/encrypt");
 const axios = require("axios");
+const send = require("./util/mail");
 
 const main = {
     join : async (data) => {
@@ -46,6 +47,11 @@ const main = {
     auth : async (code) => {
         const res = await axios.get("http://localhost:8080/chkCode?code=" + code);
         return res.data;
+    },
+    resend : async (email) => {
+        const code = await axios.get("http://localhost:8080/code?data=" + email);
+        await send(email, code.data);
+        return true;
     }
 }
 module.exports = main;
