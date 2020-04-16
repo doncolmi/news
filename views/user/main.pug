@@ -1,6 +1,16 @@
-include ../layout/header.pug
+include ../layout/head.pug
     title 소식
-    link(rel='stylesheet', href='/css/main.css')
 body
+    .wrapper
+        .menu
+            .elem.activeMenu
+                i(class="fas fa-list fa-2x").mr-3
+                a.text 내 소식
+            .elem.eCenter
+                i(class="far fa-newspaper fa-2x").mr-3
+                a.text 둘러보기
+            .elem
+                i(class="fas fa-cog fa-2x").mr-3
+                a.text 설정
     include ../layout/footer.pug
     script(src="/js/main.js")

@@ -7,10 +7,6 @@ router.get('/', auth.indexLogin, async function(req, res) {
     res.render('index');
 });
 
-router.get('/main', auth.login, function (req, res) {
-    res.render('user/user', {name : req.session.key.id});
-});
-
 router.get('/get', function(req, res, next) {
     res.json(req.session);
 });

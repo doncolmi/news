@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap');
+.wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.wrapper .menu {
+    display: flex;
+    box-shadow: 0px 3px 4px 0px gray;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper .elem {
+    width: 33%;
+    padding: 1% 2%;
+    font-family: 'Noto Sans KR', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper .eCenter {
+    width:34%;
+}
+
+.wrapper .elem a.text {
+    font-size: 3vh;
+}
+
+.activeMenu {
+    background: #007bff;
+    color: white;
+    box-shadow: 0px 0px 5px gray;
+}
