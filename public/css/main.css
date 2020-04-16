@@ -1,36 +1,89 @@
-@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700&display=swap');
+
 .wrapper {
     width: 100%;
     display: flex;
     flex-direction: column;
+    font-family: 'Nanum Gothic', sans-serif;
 }
 
 .wrapper .menu {
+    width:17%;
+    height: 100vh;
     display: flex;
-    box-shadow: 0px 3px 4px 0px gray;
-    justify-content: center;
+    flex-direction: column;
+    box-shadow: 0px 3px 10px 3px gray;
     align-items: center;
+    position: fixed;
+    top: 0;
+    left:0;
 }
 
 .wrapper .elem {
-    width: 33%;
+    width: 100%;
+    height: 8vh;
     padding: 1% 2%;
-    font-family: 'Noto Sans KR', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.wrapper .eCenter {
-    width:34%;
+    cursor: pointer;
 }
 
 .wrapper .elem a.text {
-    font-size: 3vh;
+    font-size: 2.5vh;
 }
 
 .activeMenu {
-    background: #007bff;
+    background: #2196F3;
     color: white;
-    box-shadow: 0px 0px 5px gray;
+    transition: 0.2s;
+}
+
+.contents {
+    margin-left:17%;
+    width:83%;
+    height: 100%;
+    padding: 1% 2%;
+    background: #f6f6f6;
+}
+
+.userInfo{
+    padding: 20% 0%;
+    text-align: center;
+}
+.myId {
+    font-size:2vh;
+    font-weight: bold;
+    text-align: center;
+}
+.like {
+    color:gray;
+}
+
+.userImg {
+    margin:0 auto;
+    width:100px;
+    height:100px;
+    background-image: url('/img/man.png');
+    border-radius: 50px;
+    background-size: cover;
+}
+.userInfo hr {
+    background:black;
+}
+
+.icon{
+    text-align: right;
+    width:42%;
+}
+.menuText{
+    width:58%;
+}
+.setting {
+    width:17%;
+    position: fixed;
+    font-size: 2.5vh;
+    text-align: right;
+    padding-right: 0.5%;
+    padding-top: 0.5%;
 }
