@@ -1,7 +1,7 @@
 const email = require('nodemailer');
 
 const id = 'matathresh1740@gmail.com';
-const pw = 'thekal12!';
+const pw = '';
 
 const send = (toEmail, code) => {
     const trans = email.createTransport({
