@@ -1,0 +1,11 @@
+-for(const item of list)
+    .myList.mt-3
+        .news
+            .newsPre(style="background : url(" + item.img + "); background-size:cover")
+            .newsCon
+                .nTitle #{item.title}
+                .nCon #{item.name}
+            .newsInfo
+                i.far.fa-clock.mr-1
+                a 39분전
+        hr

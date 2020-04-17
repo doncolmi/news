@@ -1,0 +1,36 @@
+.wrapper
+    .menu
+        .setting
+            .sett.w-50
+            .cogs.w-50
+                i(class="fas fa-cog")
+                i#logout(class="fas fa-power-off")
+        .userInfo
+            .userImg
+            hr
+            .myId
+                a matathresh1740
+            .like.mt-1
+                small 즐겨찾는 언론사 : 5개
+                br
+                small 즐겨찾는 주제 : 2개
+        .elem.activeMenu(onclick="menu(this)")
+            .icon
+                i(class="fas fa-thumbtack fa-2x").mr-3
+            .menuText
+                a.text 내 소식
+        .elem(onclick="menu(this)")
+            .icon
+                i(class="fas fa-globe-asia fa-2x").mr-3
+            .menuText
+                a.text 둘러보기
+        .elem(onclick="menu(this)")
+            .icon
+                i(class="far fa-newspaper fa-2x").mr-3
+            .menuText
+                a.text 언론사
+        .elem(onclick="menu(this)")
+            .icon
+                i(class="fas fa-list fa-2x").mr-3
+            .menuText
+                a.text 주제

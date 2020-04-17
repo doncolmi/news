@@ -96,7 +96,7 @@ const checkNews = async (list) => {
 }
 
 const cntHref = async (href) => {
-    const res = await axios.get('http://localhost:8080/news?href=' + href.replace(/&/g,"%26"));
+    const res = await axios.get('http://localhost:8080/news/chk?href=' + href.replace(/&/g,"%26"));
     return res.data;
 }
 

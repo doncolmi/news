@@ -154,7 +154,7 @@ const main = {
         }).then(function (res) {
             console.log("에러인데엥");
             if(res) {
-                location.href = "/";
+                location.href = "/main";
                 alert("로그인완료");
             } else {
                 alert("장난하냐?");

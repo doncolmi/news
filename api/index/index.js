@@ -26,8 +26,13 @@ router.post('/login', auth.indexLogin, async function(req, res) {
         id : req.body.id,
         auth : await user.authCheck(req.body.id)
     };
-    ((await user.login(req.body)) > 0) ? req.session.key = data : req.session.destroy(err => {console.log(err)})
-    res.redirect('/main');
+    const result = await user.login(req.body) > 0;
+    if(result) {
+        req.session.key = data;
+    } else {
+        req.session.destroy(err => {console.log(err)});
+    }
+    res.json(result);
 });
 
 router.get('/logout', async function(req, res, next) {
