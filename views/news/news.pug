@@ -1,0 +1,14 @@
+-for(const item of list)
+    .myList.mt-3
+        .news
+            .newsPre(style="background : url(" + item.img + "); background-size:cover")
+            .newsCon
+                .nTitle #{item.title}
+                .nCon
+                    != item.text
+            .newsInfo
+                i.far.fa-clock.mr-1
+                a #{item.date}
+                br
+                small #{item.name}
+        hr

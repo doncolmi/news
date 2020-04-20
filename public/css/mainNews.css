@@ -37,6 +37,7 @@
     heigth:40%;
     padding: 3% 3%;
     font-size: 0.9em;
+    font-weight: bold;
 }
 
 .myList {
@@ -59,7 +60,7 @@
     background-size: cover;
 }
 .newsCon {
-    padding: 1% 1.5%;
+    padding: 0% 1%;
     display: flex;
     flex-direction: column;
     width: 70%;

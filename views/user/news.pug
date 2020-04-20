@@ -1,11 +1,15 @@
--for(const item of list)
-    .myList.mt-3
-        .news
-            .newsPre(style="background : url(" + item.img + "); background-size:cover")
-            .newsCon
-                .nTitle #{item.title}
-                .nCon #{item.name}
-            .newsInfo
-                i.far.fa-clock.mr-1
-                a 39분전
-        hr
+include ../layout/head.pug
+    title 소식
+    link(rel='stylesheet', href='/css/mainNews.css')
+body
+    include ../layout/header.pug
+    .contents
+        .recent.mb-3
+            a 최근에 올라온 기사들
+        .fiveCon#recent
+        .listComment.mt-2
+            small 최근에 올라온 기사 리스트는 둘러보기에서 확인이 가능합니다.
+        div#boxs
+        #plus.mt-5
+    include ../layout/footer.pug
+    script(src="/js/mainNews.js")
