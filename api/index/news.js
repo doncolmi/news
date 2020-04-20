@@ -8,12 +8,12 @@ const newsService = require('../../services/news');
 router.get('/', async function(req, res, next) {
     const newses = await newsService.getNewsList(req.query.page);
     console.log(newses[0].id);
-    res.render('news/news', {list : newses});
+    res.render('item/news', {list : newses});
 });
 
 router.get('/recent', async function(req, res, next) {
     const newses = await newsService.getNewsRecent();
-    res.render('news/recentNews', {list : newses});
+    res.render('item/recentNews', {list : newses});
 });
 
 router.get('/cnt', async function(req, res, next) {

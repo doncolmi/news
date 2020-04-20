@@ -1,7 +1,16 @@
 include ../layout/head.pug
     title 소식
+    link(rel='stylesheet', href='/css/mainPress.css')
 body
     include ../layout/header.pug
     .contents
+        .pTitle
+            h1 언론사 목록
+            small 언론사를 클릭하시면 각 언론사의 최근 기사 내용을 확인할 수 있습니다.
+        .pSort
+            small.pointer#nameSort 이름순
+            small  |
+            small.pointer#followSort  팔로우순
+        .presses#presses
     include ../layout/footer.pug
     script(src="/js/mainPress.js")

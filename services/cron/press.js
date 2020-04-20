@@ -5,7 +5,7 @@ const headers = {
 };
 
 const updatePress = async (items) => {
-    const getPress = await axios.get('http://localhost:8080/press/all');
+    const getPress = await axios.get('http://localhost:8080/press');
 
     let pressNames = [];
     for(let i = 0; i < getPress.data.length; i++) {

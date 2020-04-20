@@ -1,0 +1,19 @@
+.press
+    .index 번호
+    .name 이름
+    .follow 팔로우 갯수
+    .add 팔로우 등록
+-let i = 0;
+-for(const item of list)
+    - i++;
+    .press
+        .index #{i}
+        .name #{item.name}
+        .follow #{item.follow}
+        if(item.checkFollow > -1)
+            .add
+                i.fas.fa-minus-square.fa-3x(onclick="minus("+ item.name +", this)")
+        else
+            .add
+                i.fas.fa-plus-square.fa-3x(onclick="plus('"+ item.name +"', this)")
+//.fas.fa-plus-square.fa-3x

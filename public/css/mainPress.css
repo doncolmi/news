@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700&display=swap');
+
+.contents {
+    margin-left:17%;
+    width:83%;
+    height: 100%;
+    padding: 3% 7%;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Nanum Gothic', sans-serif;
+}
+
+.presses {
+    width:100%;
+    padding: 1%;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    display: flex;
+    flex-direction: column;
+}
+
+.press {
+    display: flex;
+    border-bottom: 1px solid lightgray;
+    padding-bottom: 1%;
+    margin-bottom: 1%;
+}
+
+.index {
+    width: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.press:first-child .index{
+    font-weight: normal;
+    font-size: 1em;
+}
+
+.name {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.press:first-child .name{
+    font-weight: normal;
+    font-size: 1em;
+}
+
+.press:first-child .follow{
+    font-weight: normal;
+    font-size: 1em;
+}
+
+.presses hr {
+    background-color: black;
+    color: black;
+}
+
+.follow {
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+.add {
+    width : 9%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pTitle{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 3%;
+}
+.pTitle h1 {
+    font-weight: bold;
+}
+.pTitle small {
+    color : gray;
+}
+
+.pSort {
+    text-align: right;
+}
+
+#nameSort {
+    font-weight: bold;
+    color: black;
+}
+.pointer {
+    cursor: pointer;
+}
+.add i {
+    cursor: pointer;
+}
