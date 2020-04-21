@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700&display=swap');
+
+.contents {
+    margin-left:17%;
+    width:83%;
+    height: 100%;
+    padding: 3% 7%;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Nanum Gothic', sans-serif;
+}
+
+.contents hr {
+    background: black;
+}
+
+.name{
+    padding: 1% 0%;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    font-size: 3em;
+    font-weight: bold;
+}
+
+.pressInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.pressInfo .info {
+    padding: 3% 0%;
+    display: flex;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    align-content: center;
+    justify-content: center;
+}
+
+.info .item {
+    width:33%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.num {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.exp {
+    color:gray;
+    font-size: 0.9em;
+}
+
+.myList {
+    width: 100%;
+}
+.listComment {
+    color: gray;
+}
+
+.news {
+    width:100%;
+    height: 200px;
+    display: flex;
+}
+.newsPre {
+    width: 15%;
+    height: 100%;
+    background: black;
+    border-radius: 10px;
+    background-size: cover;
+}
+.newsCon {
+    padding: 0% 1%;
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    height: 100%;
+}
+.nTitle {
+    font-size: 2em;
+    font-weight: bold;
+}
+.nCon {
+    padding-top: 2%;
+    color: gray;
+}
+.nInfo{
+    width:15%;
+    font-size: 0.9em;
+    color:gray;
+    text-align: right;
+    padding: 0.5% 1%;
+}
+
+#plus {
+    width:100%;
+    height: 1px;
+}

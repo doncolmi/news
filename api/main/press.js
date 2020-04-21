@@ -9,10 +9,12 @@ router.get('/', auth.login, async function (req, res) {
     const presses = await pressService.getPressList(req.session.key.id);
     res.render('item/press', {list : presses});
 });
+
 router.get('/add', auth.login, async function (req, res) {
     const add = await pressService.add(req.query.name, req.session.key.id);
     res.json(add);
 });
+
 router.get('/remove', auth.login, async function (req, res) {
     try{
         await pressService.remove(req.query.name, req.session.key.id);

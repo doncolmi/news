@@ -34,13 +34,22 @@ const main = {
         return res;
     },
     add : async (name, uid) => {
-        const url = "http://localhost:8080/press/add?name=" + name + "&uid=" + uid;
-        const press = await axios.get(url);
+        const url = "http://localhost:8080/press/add?name=" + encodeURI(name) + "&uid=" + uid;
+        const press = await axios.get(url).catch(err => console.log(err));
+        console.log(press);
         return press.data;
     },
     remove : async (name, uid) => {
-        const url = "http://localhost:8080/press/remove?name=" + name + "&uid=" + uid;
+        const url = "http://localhost:8080/press/remove?name=" + encodeURI(name) + "&uid=" + uid;
         await axios.get(url).catch(e => console.log(e));
+    },
+    getPress : async (name) => {
+        const url = "http://localhost:8080/press/" + encodeURI(name);
+        const press = await axios.get(url).catch(e => console.log(e));
+        return press.data;
+    },
+    getPressNews : async (name) => {
+
     }
 };
 

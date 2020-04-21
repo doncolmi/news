@@ -8,12 +8,12 @@
     - i++;
     .press
         .index #{i}
-        .name #{item.name}
+        .name
+            a(href="/main/press/" + item.name) #{item.name}
         .follow #{item.follow}
         if(item.checkFollow > -1)
             .add
-                i.fas.fa-minus-square.fa-3x(onclick="minus("+ item.name +", this)")
+                i.fas.fa-minus-square.fa-3x(onclick="minus('"+ item.name +"')")
         else
             .add
-                i.fas.fa-plus-square.fa-3x(onclick="plus('"+ item.name +"', this)")
-//.fas.fa-plus-square.fa-3x
+                i.fas.fa-plus-square.fa-3x(onclick="plus('"+ item.name +"')")

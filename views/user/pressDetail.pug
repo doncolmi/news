@@ -1,0 +1,22 @@
+include ../layout/head.pug
+    title 소식
+    link(rel='stylesheet', href='/css/test.css')
+body
+    include ../layout/header.pug
+    .contents
+        .pressInfo
+            .name #{press.name}
+            .info
+                .item
+                    .num #{press.rank}위
+                    .exp 전체 언론사 중 팔로우 순위는?
+                .item
+                    .num #{press.follow}명
+                    .exp 이 언론사를 몇 명이 팔로우 했을까요?
+                .item
+                    .num #{press.newses}개
+                    .exp 이 언론사가 올린 기사의 개수는?
+        #box
+        #plus.mt-5
+    include ../layout/footer.pug
+    script(src="/js/test.js")
