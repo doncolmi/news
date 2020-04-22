@@ -33,6 +33,21 @@ const main = {
         }
         return res;
     },
+    getPressListOrderByFollow : async (id) => {
+        const press = await axios.get('http://localhost:8080/press/follow');
+        const followListWrapper = await axios.get('http://localhost:8080/fav/press?id=' + id);
+        const followList = await makeString(followListWrapper.data);
+        const res = [];
+        for(const item of press.data) {
+            const data = {
+                name : item.name,
+                follow : item.follow + "개",
+                checkFollow : await checkFollow(followList, item.name)
+            }
+            res.push(data);
+        }
+        return res;
+    },
     add : async (name, uid) => {
         const url = "http://localhost:8080/press/add?name=" + encodeURI(name) + "&uid=" + uid;
         const press = await axios.get(url).catch(err => console.log(err));

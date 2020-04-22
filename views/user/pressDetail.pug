@@ -5,7 +5,7 @@ body
     include ../layout/header.pug
     .contents
         .pressInfo
-            .name #{press.name}
+            .name#pName #{press.name}
             .info
                 .item
                     .num #{press.rank}위
@@ -19,4 +19,4 @@ body
         #box
         #plus.mt-5
     include ../layout/footer.pug
-    script(src="/js/test.js")
+    script(src="/js/pressDetail.js")

@@ -39,3 +39,20 @@ function minus(name) {
         alert("추가 오류 입니다.");
     };
 }
+
+document.getElementById('followSort').onclick = function () {
+    $.ajax({
+        type:'get',
+        url:'/press/follow'
+    }).then(function(res) {
+        document.getElementById('nameSort').style.fontWeight = 'normal';
+        document.getElementById('followSort').style.fontWeight = 'bold';
+        document.getElementById('presses').innerHTML = res;
+    }), function(err) {
+        alert(err);
+    };
+}
+
+document.getElementById('nameSort').onclick = function () {
+    location.reload();
+}
