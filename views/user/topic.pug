@@ -1,0 +1,85 @@
+include ../layout/head.pug
+    title 소식
+    link(rel='stylesheet', href='/css/topic.css')
+body
+    include ../layout/header.pug
+    .contents
+        .pTitle
+            h1 주제 목록
+            small 각 주제를 클릭하여 각 주제의 최근 기사를 확인할 수 있습니다.
+        .topics
+            .topic
+                .img#poliImg
+                .info
+                    .title
+                        .name#poli 정치
+                        .plus
+                            if(followMe[0] === 0)
+                                i.fas.fa-plus-square.fa(onclick="plus('정치')")
+                            else
+                                i.fas.fa-minus-square.fa(onclick="minus('정치')")
+                    .follow
+                        a 팔로우 하는 사람들 : #{follow[0]}명
+            .topic
+                .img#finaImg
+                .info
+                    .title
+                        .name#fina 경제
+                        .plus
+                            if(followMe[1] === 0)
+                                i.fas.fa-plus-square.fa(onclick="plus('경제')")
+                            else
+                                i.fas.fa-minus-square.fa(onclick="minus('경제')")
+                    .follow
+                        a 팔로우 하는 사람들 : #{follow[1]}명
+            .topic
+                .img#sociImg
+                .info
+                    .title
+                        .name#soci 사회
+                        .plus
+                            if(followMe[2] === 0)
+                                i.fas.fa-plus-square.fa(onclick="plus('사회')")
+                            else
+                                i.fas.fa-minus-square.fa(onclick="minus('사회')")
+                    .follow
+                        a 팔로우 하는 사람들 : #{follow[2]}명
+        .topics
+            .topic
+                .img#lifeImg
+                .info
+                    .title
+                        .name#life 생활
+                        .plus
+                            if(followMe[3] === 0)
+                                i.fas.fa-plus-square.fa(onclick="plus('생활')")
+                            else
+                                i.fas.fa-minus-square.fa(onclick="minus('생활')")
+                    .follow
+                        a 팔로우 하는 사람들 : #{follow[3]}명
+            .topic
+                .img#itImg
+                .info
+                    .title
+                        .name#it IT
+                        .plus
+                            if(followMe[4] === 0)
+                                i.fas.fa-plus-square.fa(onclick="plus('IT')")
+                            else
+                                i.fas.fa-minus-square.fa(onclick="minus('IT')")
+                    .follow
+                        a 팔로우 하는 사람들 : #{follow[4]}명
+            .topic
+                .img#opinImg
+                .info
+                    .title
+                        .name#opin 칼럼
+                        .plus
+                            if(followMe[5] === 0)
+                                i.fas.fa-plus-square.fa(onclick="plus('칼럼')")
+                            else
+                                i.fas.fa-minus-square.fa(onclick="minus('칼럼')")
+                    .follow
+                        a 팔로우 하는 사람들 : #{follow[5]}명
+    include ../layout/footer.pug
+    script(src="/js/topic.js")

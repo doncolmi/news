@@ -1,6 +1,22 @@
 include ../layout/head.pug
     title 소식
+    link(rel='stylesheet', href='/css/mainNews.css')
 body
     include ../layout/header.pug
     .contents
+        .types
+            .type#press
+                i(class="far fa-newspaper").mr-3
+                a 팔로우한 언론사 기준 목록
+            .type#topic
+                i(class="fas fa-list").mr-3
+                a 팔로우한 주제 기준 목록
+        .recent.mb-3
+            a 최근에 올라온 기사들
+        .fiveCon#recent
+        .listComment.mt-2
+            small 최근에 올라온 기사 리스트는 둘러보기에서 확인이 가능합니다.
+        #boxs
+        #plus.mt-5
     include ../layout/footer.pug
+    script(src="/js/myNews.js")

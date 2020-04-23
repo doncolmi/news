@@ -1,10 +1,10 @@
 var page = 0;
 document.getElementById('myNews').classList.remove('activeMenu');
-document.getElementById('press').classList.add('activeMenu');
+document.getElementById('topic').classList.add('activeMenu');
 
 $.ajax({
     type: 'get',
-    url: '/press/' + document.getElementById('pName').innerText + '/cnt',
+    url: '/topic/' + document.getElementById('pName').innerText + '/cnt',
     beforeSend: () => {
         const img = `<img id="load" style="margin: 0 auto" src="/img/load.gif">`;
         document.getElementById('box').innerHTML += img;
@@ -18,7 +18,7 @@ $.ajax({
     const ajax = () => {
         $.ajax({
             type:'get',
-            url:'/press/' + document.getElementById('pName').innerText + '/news?page=' + page,
+            url:'/topic/' + document.getElementById('pName').innerText + '/news?page=' + page,
         }).then(function(res) {
             document.getElementById('box').innerHTML += res;
             page++;

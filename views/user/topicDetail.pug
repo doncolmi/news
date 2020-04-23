@@ -1,0 +1,22 @@
+include ../layout/head.pug
+    title 소식
+    link(rel='stylesheet', href='/css/pressDetail.css')
+body
+    include ../layout/header.pug
+    .contents
+        .pressInfo
+            .name#pName #{topic.name}
+            .info
+                .item
+                    .num #{topic.rank}위
+                    .exp 전체 주제 중 팔로우 순위는?
+                .item
+                    .num #{topic.follow}명
+                    .exp 이 주제를 몇 명이 팔로우 했을까요?
+                .item
+                    .num #{topic.newses}개
+                    .exp 이 주제로 올라온 기사의 개수는?
+        #box
+        #plus.mt-5
+    include ../layout/footer.pug
+    script(src="/js/topicDetail.js")

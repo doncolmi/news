@@ -20,11 +20,11 @@ const topic = [{
 },{
     id: 4,
     url : "103",
-    name : "생활/문화"
+    name : "생활"
 },{
     id: 5,
     url : "105",
-    name : "IT/과학"
+    name : "IT"
 },{
     id: 6,
     url : "110",

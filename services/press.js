@@ -62,9 +62,6 @@ const main = {
         const url = "http://localhost:8080/press/" + encodeURI(name);
         const press = await axios.get(url).catch(e => console.log(e));
         return press.data;
-    },
-    getPressNews : async (name) => {
-
     }
 };
 

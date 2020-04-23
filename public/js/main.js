@@ -15,6 +15,9 @@ const main = {
         document.getElementById('press').onclick = function() {
             location.href = '/main/press';
         }
+        document.getElementById('topic').onclick = function() {
+            location.href = '/main/topic';
+        }
     },
 };
 
