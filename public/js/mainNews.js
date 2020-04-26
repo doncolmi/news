@@ -25,7 +25,8 @@ $.ajax({
 }).then(function(res) {
     const lastPage = res;
 
-    const ajax = function() {$.ajax({
+    const ajax = function() {
+    $.ajax({
         type: 'get',
         url: '/news?page=' + page
     }).then(function (res) {

@@ -3,7 +3,7 @@
         .setting
             .sett.w-50
             .cogs.w-50
-                i(class="fas fa-cog")
+                i#setIcon(class="fas fa-cog", data-toggle="modal", data-target="#setBoard")
                 i#logout(class="fas fa-power-off")
         .userInfo
             .userImg
@@ -34,3 +34,15 @@
                 i(class="fas fa-list fa-2x").mr-3
             .menuText
                 a.text 주제
+    .modal.fade#setBoard
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    h4.modal-title 설정
+                    button.close(type="button", data-dismiss="modal") &times;
+                .modal-body
+                    .set
+                        .title 댓글 표시 여부
+                        .checks.custom-control.custom-switch
+                            input.custom-control-input#commentSet(type="checkbox")
+                            label.custom-control-label#commentSetLabel(for="commentSet")

@@ -138,6 +138,33 @@ const main = {
             res.push(data);
         }
         return res;
+    },
+    getMyNewsTopic : async (id, page) => {
+        const news = await axios.get('http://localhost:8080/main/topic?id=' + id + '&page=' + page);
+        const res = [];
+        for(const item of news.data) {
+            const $ = await cheerio.load(item.contents);
+            let img = await $("img").attr("src");
+            let text = await $.text();
+            if(!img) img = '/img/news.png';
+            !text ? text = "본문이 사진으로 이루어져있거나 내용이 없는 기사입니다."
+                : text = text.substr(0,200) + "...";
+
+            if(!(item.createdDate[5])) item.createdDate[5] = '00';
+            if((item.createdDate[1] * 1) < 10) {
+                item.createdDate[1] = '0' + item.createdDate[1];
+            }
+            const time = `${item.createdDate[0]}-${item.createdDate[1]}-${item.createdDate[2]}T${item.createdDate[3]}:${item.createdDate[4]}:${item.createdDate[5]}`;
+            const data = {
+                title : item.title,
+                date : makeTime(time),
+                name : item.topic.name,
+                img : img,
+                text : text
+            }
+            res.push(data);
+        }
+        return res;
     }
 }
 

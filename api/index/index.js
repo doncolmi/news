@@ -41,5 +41,4 @@ router.get('/logout', async function(req, res, next) {
 });
 
 
-
 module.exports = router;

@@ -112,3 +112,28 @@ small {
     flex-direction: column;
     font-family: 'Nanum Gothic', sans-serif;
 }
+
+.set {
+    font-weight: bold;
+    padding : 1% 3%;
+}
+
+.set .title, .set .checks {
+    display: inline-block;
+}
+.set .title {
+    width:30%;
+    border-right: 1px solid gray;
+    text-align: center;
+    padding-right: 3%;
+}
+.set .checks {
+    width: 60%;
+    padding-left: 15%;
+}
+.custom-control-label {
+    font-weight: normal;
+    font-size:0.9em;
+    color:gray;
+}
+

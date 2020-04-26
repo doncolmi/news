@@ -26,6 +26,11 @@ router.get('/myNews', auth.login, async function (req, res) {
     res.render('item/news', {list : newses});
 })
 
+router.post('/myNews', auth.login, async function (req, res) {
+    const newses = await newsService.getMyNewsTopic(req.session.key.id, req.body.page);
+    res.render('item/news', {list : newses});
+})
+
 router.get('/news', auth.login, function (req, res) {
     res.render('user/news', {name : req.session.key.id});
 });
