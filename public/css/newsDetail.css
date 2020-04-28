@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700&display=swap');
+
+.contents {
+    margin-left:17%;
+    width:83%;
+    height: 100%;
+    padding: 3% 7%;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Nanum Gothic', sans-serif;
+}
+.nNews {
+    display: flex;
+    flex-direction: column;
+    width:100%;
+    background-color: white;
+    border-radius: 10px;
+    padding: 5% 1%;
+    font-family: 'Nanum Gothic', sans-serif;
+}
+.nnNews hr {
+    background-color: black;
+}
+.ntitle {
+    font-size: 2em;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    padding-bottom: 3%;
+    border-bottom: 1px solid lightgray;
+    margin-bottom: 1%;
+}
+.nInfos {
+    width: 100%;
+}
+
+.nNInfo {
+    padding: 0% 1%;
+    width:50%;
+    display: inline-block;
+    color:gray;
+    text-align:left;
+}
+
+.nNInfo:nth-child(2) {
+    text-align: right;
+}
+.nNewsCon {
+    width:100%;
+    padding : 2% 15%;
+    margin-bottom: 1%;
+}
+.replys {
+    width:100%;
+    padding: 2% 1%;
+    border-top : 1px solid lightgray;
+}
+.replyText {
+    font-size: 2em;
+    padding: 0% 2%;
+    font-weight: bold;
+    margin-bottom: 2%;
+}
+.replyText small {
+    margin-left:0.5%;
+    font-size:0.5em;
+    font-weight: normal;
+}
+.replyWrite {
+    display: flex;
+    width:100%;
+    justify-content: center;
+    align-content: center;
+}
+.replyWrite textarea {
+    width: 88%;
+    resize: none;
+    border-radius: 0.25rem 0em 0em 0.25rem;
+}
+.replyWrite button {
+    height:134px;
+    border-radius: 0em 0.25rem 0.25rem 0em;
+}
+
+#reply {
+    display: flex;
+    flex-direction: column;
+    margin-top: 3%;
+
+}
+.reply {
+    display: flex;
+    flex-direction: column;
+    padding:0% 3%;
+}
+.user {
+    display: flex;
+}
+.zName{
+    width:30%;
+    display: flex;
+    align-content: center;
+}
+.idText {
+    margin-left: 3%;
+    font-weight: bold;
+}
+.replyTime {
+    width:70%;
+    text-align: right;
+    color:gray;
+}
+.replyContents {
+    padding: 1%;
+    border-bottom : 1px solid lightgray;
+}
+
+.noReply {
+    margin-top:5%;
+    color:gray;
+    text-align: center;
+}
+.noReplyBtn {
+    margin-top:1%;
+}
+.profile {
+    width:30px;
+    height: 30px;
+}
+img {
+    margin:0 auto;
+    display: flex;
+}
+.vod_area {
+    text-align: center;
+    font-weight: bold;
+    font-size:1.3em;
+    margin: 3% 0%;
+}

@@ -2,8 +2,8 @@ const axios = require('axios');
 const newsModel = require('../models/newsModel');
 const cheerio = require('cheerio');
 
-const main = {
-    getNewsList : async (page) => {
+const de = {
+    getNewsList : async function(page) {
         const news = await axios.get('http://localhost:8080/news?page=' + (page * 1));
         const res = [];
         for(const item of news.data) {
@@ -20,6 +20,7 @@ const main = {
             }
             const time = `${item.createdDate[0]}-${item.createdDate[1]}-${item.createdDate[2]}T${item.createdDate[3]}:${item.createdDate[4]}:${item.createdDate[5]}`;
             const data = {
+                id : item.id,
                 title : item.title,
                 date : makeTime(time),
                 name : item.press.name,
@@ -30,7 +31,7 @@ const main = {
         }
         return res;
     },
-    getNewsRecent : async () => {
+    getNewsRecent : async function() {
         const news = await axios.get('http://localhost:8080/news/recent');
         const res = [];
         for(const item of news.data) {
@@ -38,6 +39,7 @@ const main = {
             let img = await $("img").attr("src");
             if(!img) img = '/img/news.png';
             const data = {
+                id : item.id,
                 title : item.title,
                 img : img
             }
@@ -45,11 +47,11 @@ const main = {
         }
         return res;
     },
-    cntNews : async () => {
+    cntNews : async function() {
         const count = await axios.get('http://localhost:8080/news/cnt');
         return count.data;
     },
-    getPressNews : async (name, page) => {
+    getPressNews : async function(name, page) {
         const news = await axios.get('http://localhost:8080/press/' + encodeURI(name) + '/news?page=' + page);
         const res = [];
         for(const item of news.data) {
@@ -66,6 +68,7 @@ const main = {
             }
             const time = `${item.createdDate[0]}-${item.createdDate[1]}-${item.createdDate[2]}T${item.createdDate[3]}:${item.createdDate[4]}:${item.createdDate[5]}`;
             const data = {
+                id : item.id,
                 title : item.title,
                 date : makeTime(time),
                 name : item.press.name,
@@ -76,14 +79,13 @@ const main = {
         }
         return res;
     },
-    cntPressNews : async (name) => {
+    cntPressNews : async function(name) {
         const cnt = await axios.get('http://localhost:8080/press/' + encodeURI(name) + '/cnt').catch(err => console.log(err));
         return cnt.data;
     },
-    getTopicNews : async (name, page) => {
+    getTopicNews : async function(name, page)  {
         const news = await axios.get('http://localhost:8080/topic/' + encodeURI(name) + '/news?page=' + page);
         const res = [];
-        console.log(news.data[0]);
         for(const item of news.data) {
             const $ = await cheerio.load(item.contents);
             let img = await $("img").attr("src");
@@ -98,6 +100,7 @@ const main = {
             }
             const time = `${item.createdDate[0]}-${item.createdDate[1]}-${item.createdDate[2]}T${item.createdDate[3]}:${item.createdDate[4]}:${item.createdDate[5]}`;
             const data = {
+                id : item.id,
                 title : item.title,
                 date : makeTime(time),
                 name : item.press.name,
@@ -108,11 +111,11 @@ const main = {
         }
         return res;
     },
-    cntTopicNews : async (name) => {
+    cntTopicNews : async function(name)  {
         const cnt = await axios.get('http://localhost:8080/topic/' + encodeURI(name) + '/cnt').catch(err => console.log(err));
         return cnt.data;
     },
-    getMyNewsByPress : async (id, page) => {
+    getMyNewsByPress : async function(id, page)  {
         const news = await axios.get('http://localhost:8080/main/press?id=' + id + '&page=' + page);
         const res = [];
         for(const item of news.data) {
@@ -129,6 +132,7 @@ const main = {
             }
             const time = `${item.createdDate[0]}-${item.createdDate[1]}-${item.createdDate[2]}T${item.createdDate[3]}:${item.createdDate[4]}:${item.createdDate[5]}`;
             const data = {
+                id : item.id,
                 title : item.title,
                 date : makeTime(time),
                 name : item.press.name,
@@ -139,7 +143,7 @@ const main = {
         }
         return res;
     },
-    getMyNewsTopic : async (id, page) => {
+    getMyNewsTopic : async function(id, page)  {
         const news = await axios.get('http://localhost:8080/main/topic?id=' + id + '&page=' + page);
         const res = [];
         for(const item of news.data) {
@@ -156,6 +160,7 @@ const main = {
             }
             const time = `${item.createdDate[0]}-${item.createdDate[1]}-${item.createdDate[2]}T${item.createdDate[3]}:${item.createdDate[4]}:${item.createdDate[5]}`;
             const data = {
+                id : item.id,
                 title : item.title,
                 date : makeTime(time),
                 name : item.topic.name,
@@ -165,7 +170,31 @@ const main = {
             res.push(data);
         }
         return res;
-    }
+    },
+    getNewsLe : async function(id)  {
+        const newsWrapper = await axios.get("http://localhost:8080/news/" + id);
+        const news = newsWrapper.data;
+        const $ = await cheerio.load(news.contents);
+        const minus = $('div.vod_area').html();
+        if(minus) {
+            news.contents = news.contents.replace(minus, `<a class="viedoLink" target="_blank" href="${news.href}">해당 기사는 동영상 뉴스입니다.<br>동영상은 해당 링크에서 시청하실 수 있습니다. </a>`);
+        }
+        news.contents = news.contents.slice(0,(news.contents.indexOf('<a href') - 4));
+        news.contents = news.contents.slice(0,(news.contents.indexOf('<a target') - 4));
+
+        if(news.createdDate[4] == 0) {
+            news.createdDate[4] = '00';
+        }
+        const time = `${news.createdDate[0]}-${news.createdDate[1]}-${news.createdDate[2]} ${news.createdDate[3]}:${news.createdDate[4]}`;
+        const data = {
+            title: news.title,
+            date : time,
+            press : news.press.name,
+            contents : news.contents,
+            topic : news.topic.name,
+        }
+        return data;
+    },
 }
 
 function makeTime(time) {
@@ -188,4 +217,5 @@ function makeTime(time) {
         day_diff >= 360 && (Math.floor( day_diff / 360 )==0?1:Math.floor( day_diff / 360 )) + " 년 전"
 }
 
-module.exports = main;
+
+module.exports = de;

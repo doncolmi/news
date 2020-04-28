@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
+
+const auth = require('../../services/util/auth');
 const newsService = require('../../services/news');
-
-
 // default url : /news
 
 router.get('/', async function(req, res, next) {
@@ -18,6 +18,14 @@ router.get('/recent', async function(req, res, next) {
 
 router.get('/cnt', async function(req, res, next) {
     res.json(await newsService.cntNews());
+});
+
+router.get('/:id', async function(req, res) {
+    const data = {
+        name : req.session.key.id,
+        news : await newsService.getNewsLe(req.params.id),
+    };
+    res.render('item/newsDetail', data);
 });
 
 

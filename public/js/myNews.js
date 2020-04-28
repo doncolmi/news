@@ -175,11 +175,8 @@ pressFollow();
 document.getElementById('presss').onclick = async function () {
     page = 1;
     await pressFollow();
-}
+};
 document.getElementById('topics').onclick = async function () {
     page = 1;
     await topicFollow();
-}
-
-
-// todo : 이제 토픽 기준으로 가져올수있게 topicFollow()를 만들어볼래?
+};

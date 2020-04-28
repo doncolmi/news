@@ -1,6 +1,6 @@
 -for(const item of list)
     .myList.mt-3
-        .news
+        .news(onclick="getNewsBoard(" + item.id +")",data-toggle="modal", data-target="#newsModal")
             .newsPre(style="background : url(" + item.img + "); background-size:cover")
             .newsCon
                 .nTitle #{item.title}

@@ -24,6 +24,9 @@ const main = {
         document.getElementById('setIcon').onclick = function() {
             _this.checkSet();
         }
+        document.getElementById('newsClose').onclick = function() {
+            _this.whiteBoard();
+        }
     },
     commentSet : function() {
         const now = document.getElementById('commentSet').checked;
@@ -49,7 +52,28 @@ const main = {
         }), function(err) {
             console.log(err);
         }
+    },
+    whiteBoard : function() {
+        document.getElementById('newsModalContent').innerHTML = '';
     }
 };
 
 main.init();
+
+function getNewsBoard(id) {
+    document.getElementById('newsModalContent').innerHTML = '';
+    $.ajax({
+        type : 'get',
+        url : '/news/' + id,
+    }).then(function(res) {
+        document.getElementById('newsModalContent').innerHTML = res;
+    }).catch(err => {
+        console.log(err);
+    });
+}
+
+// todo : 댓글 만들기
+// todo : set값 세션이 넣기
+// todo : css 포인트 값 해결하기
+// todo : recent에 getNews 넣자!!!!!!
+// todo : 수고했다!

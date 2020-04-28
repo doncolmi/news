@@ -1,0 +1,30 @@
+.nNews
+    .ntitle #{news.title}
+    .nInfos
+        .nNInfo
+            small 작성시간 : #{news.date}
+        .nNInfo
+            a #{news.press} / #{news.topic}
+    .nNewsCon
+        != news.contents
+    .replys
+        if(true)
+            .noReply 현재 댓글 감추기 기능을 사용중입니다.
+                br
+                .btn.btn-info.btn-sm.noReplyBtn 이 게시글 댓글 확인하기
+        else
+            .replyText
+                a 댓글
+                small 1개
+            .replyWrite
+                textarea.form-control#replyForm(placeholder="댓글을 작성해주세요.", rows=5)
+                button.btn.btn-primary 댓글작성
+            #reply
+                .reply
+                    .user
+                        .zName
+                            .profile(style="background-image: url('/img/man.png'); background-size: cover")
+                            .idText matathresh1740
+                        .replyTime 방금 전
+                    .replyContents
+                        p 댓글 내용임니다.
