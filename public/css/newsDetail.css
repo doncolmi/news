@@ -111,8 +111,9 @@
     color:gray;
 }
 .replyContents {
-    padding: 1%;
+    padding: 1% 7% 3% 1%;
     border-bottom : 1px solid lightgray;
+    word-break: break-all;
 }
 
 .noReply {

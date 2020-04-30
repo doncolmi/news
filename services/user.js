@@ -52,6 +52,13 @@ const main = {
         const code = await axios.get("http://localhost:8080/code?data=" + email);
         await send(email, code.data);
         return true;
-    }
+    },
 }
 module.exports = main;
+
+module.exports.getSetting = async (id) => {
+    const set = await axios.get("http://localhost:8080/set?id=" + id);
+    return set.data;
+}
+
+// todo : div밖으로 자꾸 댓글이 쳐나감 ㅅㅂ

@@ -24,7 +24,7 @@ router.get('/auth', async function(req, res, next) {
 router.post('/login', auth.indexLogin, async function(req, res) {
     const data = {
         id : req.body.id,
-        auth : await user.authCheck(req.body.id)
+        auth : await user.authCheck(req.body.id),
     };
     const result = await user.login(req.body) > 0;
     if(result) {

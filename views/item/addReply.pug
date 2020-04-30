@@ -1,0 +1,11 @@
+-for (const item of reply)
+   .reply.mt-4.mb-4
+       .user
+           .zName
+               .profile(style="background-image: url('/img/man.png'); background-size: cover")
+               .idText #{item.name}
+               if(name === item.name)
+                   i.ml-2.pt-1.fas.fa-edit(onclick="modifyReply(" + item.id + ")")
+                   i.ml-2.pt-1.fas.fa-trash(onclick="deleteReply(" + item.id + ")")
+           .replyTime #{item.date}
+       .replyContents(id="reply" + item.id) #{item.contents}

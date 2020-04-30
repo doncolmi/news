@@ -187,6 +187,7 @@ const de = {
         }
         const time = `${news.createdDate[0]}-${news.createdDate[1]}-${news.createdDate[2]} ${news.createdDate[3]}:${news.createdDate[4]}`;
         const data = {
+            id: news.id,
             title: news.title,
             date : time,
             press : news.press.name,
@@ -219,3 +220,91 @@ function makeTime(time) {
 
 
 module.exports = de;
+
+module.exports.getNewsReply = async (id) => {
+    const reply = await axios.get("http://localhost:8080/news/"+ id + "/reply"  + "?page=0");
+    const res = [];
+    for(const item of reply.data) {
+        if(!(item.createdDate[5])) item.createdDate[5] = '00';
+        if((item.createdDate[1] * 1) < 10) {
+            item.createdDate[1] = '0' + item.createdDate[1];
+        }
+        const time = `${item.createdDate[0]}-${item.createdDate[1]}-${item.createdDate[2]}T${item.createdDate[3]}:${item.createdDate[4]}:${item.createdDate[5]}`;
+        const data = {
+            id : item.id,
+            name : item.user.uid,
+            date : makeTime(time),
+            contents : item.contents,
+        }
+        res.push(data);
+    }
+    return res;
+}
+
+module.exports.getNewsReplyCnt = async (id) => {
+    const reply = await axios.get("http://localhost:8080/news/"+ id + "/reply/cnt");
+    console.log(reply.data);
+    return reply.data;
+}
+
+module.exports.saveNewsReply = async (newsId, userId, contents) => {
+    const data = {
+        "userId" : userId,
+        "contents" : contents
+    };
+    await axios({
+        method: 'post',
+        headers: {
+            'dataType': 'json',
+            'Content-type' : 'application/json; charset=utf-8',
+        },
+        url: 'http://localhost:8080/news/' + newsId + '/reply',
+        data: data,
+    }).catch(err => console.log(err));
+}
+
+module.exports.getReplyContents = async (id) => {
+    const contents = await axios.get('http://localhost:8080/news/reply/' + id);
+    return contents.data;
+}
+
+module.exports.updateReplyContents = async (id, contents) => {
+    const data = {
+        contents : contents,
+    }
+    await axios({
+        method: 'patch',
+        headers: {
+            'dataType': 'json',
+            'Content-type' : 'application/json; charset=utf-8',
+        },
+        url: 'http://localhost:8080/news/reply/' + id,
+        data: JSON.stringify(data),
+    }).catch(err => console.log(err));
+    const reply = await axios.get('http://localhost:8080/news/reply/' + id);
+    return reply.data;
+}
+
+module.exports.deleteReply = async (id) => {
+    await axios.delete('http://localhost:8080/news/reply/' + id);
+}
+
+module.exports.getAddReply = async (id, page) => {
+    const reply = await axios.get("http://localhost:8080/news/"+ id + "/reply"  + "?page=" + page);
+    const res = [];
+    for(const item of reply.data) {
+        if(!(item.createdDate[5])) item.createdDate[5] = '00';
+        if((item.createdDate[1] * 1) < 10) {
+            item.createdDate[1] = '0' + item.createdDate[1];
+        }
+        const time = `${item.createdDate[0]}-${item.createdDate[1]}-${item.createdDate[2]}T${item.createdDate[3]}:${item.createdDate[4]}:${item.createdDate[5]}`;
+        const data = {
+            id : item.id,
+            name : item.user.uid,
+            date : makeTime(time),
+            contents : item.contents,
+        }
+        res.push(data);
+    }
+    return res;
+}

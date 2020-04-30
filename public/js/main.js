@@ -24,9 +24,6 @@ const main = {
         document.getElementById('setIcon').onclick = function() {
             _this.checkSet();
         }
-        document.getElementById('newsClose').onclick = function() {
-            _this.whiteBoard();
-        }
     },
     commentSet : function() {
         const now = document.getElementById('commentSet').checked;
@@ -67,10 +64,16 @@ function getNewsBoard(id) {
         url : '/news/' + id,
     }).then(function(res) {
         document.getElementById('newsModalContent').innerHTML = res;
+        newsJs.init();
     }).catch(err => {
         console.log(err);
     });
-}
+};
+
+
+
+
+
 
 // todo : 댓글 만들기
 // todo : set값 세션이 넣기

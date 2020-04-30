@@ -1,4 +1,4 @@
 -for(const item of list)
-    .Con.mr-3
+    .Con.mr-3(onclick="getNewsBoard(" + item.id +")",data-toggle="modal", data-target="#newsModal")
         .newsImg(style="background : url(" + item.img + "); background-size:cover")
         .newsTitle #{item.title}

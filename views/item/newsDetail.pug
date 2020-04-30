@@ -1,4 +1,5 @@
 .nNews
+    #newsIds.d-none #{news.id}
     .ntitle #{news.title}
     .nInfos
         .nNInfo
@@ -8,23 +9,45 @@
     .nNewsCon
         != news.contents
     .replys
-        if(true)
+        if(!set)
             .noReply 현재 댓글 감추기 기능을 사용중입니다.
                 br
-                .btn.btn-info.btn-sm.noReplyBtn 이 게시글 댓글 확인하기
+                .btn.btn-info.btn-sm.noReplyBtn 이 기사에 달린 #{replyCnt}개의 댓글 확인하기
+        else if(replyCnt < 1)
+            .replyText
+                a 댓글
+                small #{replyCnt}개
+            .replyWrite
+                textarea.form-control#replyForm(placeholder="댓글을 작성해주세요.", rows=5)
+                button.btn.btn-primary#replyFormBtn 댓글작성
+            .noReply 기사에 달린 댓글이 없습니다.
         else
             .replyText
                 a 댓글
-                small 1개
+                small #{replyCnt}개
             .replyWrite
                 textarea.form-control#replyForm(placeholder="댓글을 작성해주세요.", rows=5)
-                button.btn.btn-primary 댓글작성
+                button.btn.btn-primary#replyFormBtn 댓글작성
             #reply
-                .reply
-                    .user
-                        .zName
-                            .profile(style="background-image: url('/img/man.png'); background-size: cover")
-                            .idText matathresh1740
-                        .replyTime 방금 전
-                    .replyContents
-                        p 댓글 내용임니다.
+                -let i = 0
+                -for(const item of reply)
+                    - i++
+                    .reply.mt-4.mb-4
+                        .user
+                            .zName
+                                .profile(style="background-image: url('/img/man.png'); background-size: cover")
+                                .idText #{item.name}
+                                if(name === item.name)
+                                    i.ml-2.pt-1.fas.fa-edit(onclick="modifyReply(" + item.id + ")")
+                                    i.ml-2.pt-1.fas.fa-trash(onclick="deleteReply(" + item.id + ")")
+                            .replyTime #{item.date}
+                        .replyContents(id="reply" + item.id) #{item.contents}
+            if(replyCnt < 6 || i >= replyCnt)
+                .noReply 더 이상 달린 댓글이 없습니다.
+            else
+                #replyPlus.mt-2.w-100.btn.btn-light
+                    | 더보기 (
+                    a#hel #{i}
+                    |  /&nbsp;
+                    a#allReply #{replyCnt}
+                    | )
