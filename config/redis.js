@@ -3,13 +3,13 @@ const session = require('express-session');
 const redisStore = require('connect-redis')(session);
 
 const redisClient = redis.createClient({
-    host: "192.168.154.128",
+    host: "192.168.219.103",
     port: 6379,
     auth_pass : "mypass"
 });
 
 const config = {
-    "host" : "192.168.154.128",
+    "host" : "192.168.219.103",
     "port" : 6379,
     "prefix" : "sid:",
     "db" : 0,

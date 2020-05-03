@@ -85,3 +85,8 @@ function deleteReply(id) {
         });
     }
 }
+
+function showThis() {
+    document.getElementById('noReply').style.display = 'none';
+    document.getElementById('replyBox').style.display = 'inherit';
+}

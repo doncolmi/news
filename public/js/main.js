@@ -65,18 +65,6 @@ function getNewsBoard(id) {
     }).then(function(res) {
         document.getElementById('newsModalContent').innerHTML = res;
         newsJs.init();
-    }).catch(err => {
-        console.log(err);
     });
 };
 
-
-
-
-
-
-// todo : 댓글 만들기
-// todo : set값 세션이 넣기
-// todo : css 포인트 값 해결하기
-// todo : recent에 getNews 넣자!!!!!!
-// todo : 수고했다!
