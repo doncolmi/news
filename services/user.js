@@ -53,12 +53,24 @@ const main = {
         await send(email, code.data);
         return true;
     },
+    findId(email) {
+
+    }
 }
 module.exports = main;
 
 module.exports.getSetting = async (id) => {
     const set = await axios.get("http://localhost:8080/set?id=" + id);
     return set.data;
-}
+};
 
+module.exports.findId = async (email) => {
+    try{
+        const id = await axios.get("http://localhost:8080/find/id?email=" + email);
+        return `<div style="text-align:center;">해당 이메일로 가입된 아이디는 <a style="font-weight: bold">${id.data}</a>입니다.</div>`;
+    } catch (e) {
+        return `<div style="text-align:center;">해당 이메일로 가입된 아이디가 없습니다.</div>`;
+    }
+
+};
 // todo : div밖으로 자꾸 댓글이 쳐나감 ㅅㅂ

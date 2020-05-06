@@ -89,3 +89,22 @@ body {
   font-weight: bold;
   color: red;
 }
+.findAB {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  margin-bottom:  3%;
+}
+.findElem {
+  text-align: center;
+  color: lightgray;
+  cursor: pointer;
+}
+.findElem:first-child {
+  border-right: 1px solid gray;
+}
+.findActive {
+  color:black;
+  font-weight: bold;
+  cursor: default;
+}

@@ -35,6 +35,14 @@ router.post('/login', auth.indexLogin, async function(req, res) {
     res.json(result);
 });
 
+router.get('/find/id', auth.indexLogin, async function(req, res) {
+   const id = await user.findId(req.query.email);
+   res.json(id);
+});
+router.get('/find', auth.indexLogin, async function (req, res) {
+    res.render('item/findForm', {type : req.query.type});
+});
+
 router.get('/logout', async function(req, res, next) {
     await req.session.destroy(err => {console.log(err)});
     res.redirect('/');

@@ -1,0 +1,33 @@
+-if(type === "id")
+    div.jTitle
+        h2 아이디 / 비밀번호 찾기
+        hr
+    div.forms
+        .findAB
+            .w-50.findElem.findActive#findId 아이디 찾기
+            .w-50.findElem#findPw 비밀번호 찾기
+        .form-group#result
+            label(for="findEmail") 이메일
+            input.form-control(type="email", placeholder="가입하실 때 작성하셨던 이메일을 입력해주세요.")#findEmail
+            p.joinText
+    div.buttons.pt-2
+        button.btn.btn-primary.mb-1#findIdBtn 아이디 찾기
+        button.btn.btn-info#joinBacks 돌아가기
+-else
+    div.jTitle
+        h2 아이디 / 비밀번호 찾기
+        hr
+    div.forms
+        .findAB
+            .w-50.findElem#findId 아이디 찾기
+            .w-50.findElem.findActive#findPw 비밀번호 찾기
+        #result
+            .form-group
+                label(for="findId") 아이디
+                input.form-control(type="email", placeholder="가입하실 때 작성하셨던 아이디를 입력해주세요.")#findId
+            .form-group
+                label(for="findEmail") 이메일
+                input.form-control(type="email", placeholder="가입하실 때 작성하셨던 이메일을 입력해주세요.")#findEmail
+    div.buttons.pt-2
+        button.btn.btn-primary.mb-1#findPwBtn 아이디 찾기
+        button.btn.btn-info#joinBacks 돌아가기

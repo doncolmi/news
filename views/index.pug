@@ -47,6 +47,22 @@ html
                 div.buttons.pt-2
                     button.btn.btn-primary.mb-1#join 가입하기
                     button.btn.btn-info#joinBack 돌아가기
+        div.welcomes
+            div.join#findForm
+                div.jTitle
+                    h2 아이디 / 비밀번호 찾기
+                    hr
+                div.forms
+                    .findAB
+                        .w-50.findElem.findActive#findId 아이디 찾기
+                        .w-50.findElem#findPw 비밀번호 찾기
+                    .form-group#result
+                        label(for="jId") 이메일
+                        input.form-control(type="email", placeholder="가입하실 때 작성하셨던 이메일을 입력해주세요.")#findEmail
+                        p.joinText
+                div.buttons.pt-2
+                    button.btn.btn-primary.mb-1#findIdBtn 아이디 찾기
+                    button.btn.btn-info#joinBacks 돌아가기
         div.modal.fade#login
             div.modal-dialog.modal-xl
                 div.modal-content
@@ -64,11 +80,12 @@ html
                                         input.form-control#pw(type="password")
                                     div.w-75.btn.btn-primary.mb-1#log 로그인
                                     div.mb-5
-                                        a.find(href="#") 아이디 / 비밀번호 찾기
+                                        a.find(href="#", data-dismiss="modal")#find 아이디 / 비밀번호 찾기
                             div.w-50.text-center.d-flex.justify-content-center.align-items-center
                                 div.d-flex.flex-column.justify-content-center.align-items-center
                                     p.mb-3 혹시 계정이 없으신가요?
                                     div.w-100.btn.btn-info(data-dismiss="modal")#goJoin 회원가입하기
         script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js")
+        script(src="https://kit.fontawesome.com/636ffb1ff3.js" crossorigin="anonymous")
         script(src="/vendor/bootstrap/js/bootstrap.js")
         script(src="/js/index.js")

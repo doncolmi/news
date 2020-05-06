@@ -30,9 +30,40 @@ const main = {
         document.querySelector('#log').onclick = async function() {
             _this.login();
         };
+        document.querySelector('#find').onclick = function() {
+            move(document.getElementsByClassName('welcomes')[1]);
+        };
+        document.querySelector('#joinBacks').onclick = function() {
+            location.href="/";
+        };
+        document.querySelector('#findIdBtn').onclick = async function() {
+            await _this.emailForFindId(document.getElementById('findEmail').value);
+        }
         document.querySelector('#joinBack').onclick = function() {
             move(document.getElementsByClassName('wrapper')[0]);
             clearData();
+        };
+        document.querySelector('#findId').onclick = function() {
+            $.ajax({
+                type: 'get',
+                url: '/find?type=id',
+            }).then(function(res) {
+                document.getElementById('findForm').innerHTML = res;
+                _this.findPwForm(_this);
+            }), function (error) {
+                alert("서버 오류입니다.");
+            }
+        };
+        document.querySelector('#findPw').onclick = function() {
+            $.ajax({
+                type: 'get',
+                url: '/find?type=pw',
+            }).then(function(res) {
+                document.getElementById('findForm').innerHTML = res;
+                _this.findIdForm(_this);
+            }), function (error) {
+                alert("서버 오류입니다.");
+            }
         };
 
         document.querySelector('#join').onclick = async function() {
@@ -163,11 +194,67 @@ const main = {
             alert("아이디 혹은 비밀번호가 맞지 않습니다.");
             clearData();
         };
+    },
+    emailForFindId : async function(email) {
+        $.ajax({
+            type: 'get',
+            url: '/find/id?email=' + email,
+        }).then(function(res) {
+            document.getElementById('result').innerHTML = res;
+            document.getElementById('findIdBtn').style.display = "none";
+        }), function (error) {
+            alert("서버 오류입니다.");
+        }
+    },
+    findIdForm : function() {
+        document.querySelector('#findId').onclick = function(th) {
+            $.ajax({
+                type: 'get',
+                url: '/find?type=id',
+            }).then(function(res) {
+                document.getElementById('findForm').innerHTML = res;
+                document.querySelector('#findPw').onclick = function() {
+                    $.ajax({
+                        type: 'get',
+                        url: '/find?type=pw',
+                    }).then(function(res) {
+                        document.getElementById('findForm').innerHTML = res;
+                    }), function (error) {
+                        alert("서버 오류입니다.");
+                    }
+                };
+            }), function (error) {
+                alert("서버 오류입니다.");
+            }
+        };
+    },
+    findPwForm : function(th) {
+        document.querySelector('#findPw').onclick = function() {
+            $.ajax({
+                type: 'get',
+                url: '/find?type=pw',
+            }).then(function(res) {
+                document.getElementById('findForm').innerHTML = res;
+                document.querySelector('#findId').onclick = function() {
+                    $.ajax({
+                        type: 'get',
+                        url: '/find?type=id',
+                    }).then(function(res) {
+                        document.getElementById('findForm').innerHTML = res;
+                    }), function (error) {
+                        alert("서버 오류입니다.");
+                    }
+                };
+            }), function (error) {
+                alert("서버 오류입니다.");
+            }
+        };
     }
 };
 let idc = false; let pwc = false; let emailc = false;
 clearData();
 main.init();
+function
 
 // const main = {
 //     init : function() {
