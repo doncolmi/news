@@ -1,4 +1,4 @@
 node_modules
 .idea
 mail.js
-redis.js
+/config/redis.js
