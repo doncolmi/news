@@ -62,7 +62,7 @@ router.delete('/reply/:id', auth.login, async function(req, res) {
 
 router.get('/:id/reply', auth.login, async function (req, res) {
      const reply = await newsService.getAddReply(req.params.id, req.query.page);
-     res.render('item/addReply', {reply : reply});
+     res.render('item/addReply', {name : req.session.key.id ,reply : reply});
 })
 
 module.exports = router;

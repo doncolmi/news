@@ -50,11 +50,11 @@ const main = {
     },
     resend : async (email) => {
         const code = await axios.get("http://localhost:8080/code?data=" + email);
-        await send(email, code.data);
+        await send.send(email, code.data);
         return true;
     },
-    findId(email) {
-
+    findPwAuth(auth) {
+        return undefined;
     }
 }
 module.exports = main;
@@ -65,12 +65,15 @@ module.exports.getSetting = async (id) => {
 };
 
 module.exports.findId = async (email) => {
-    try{
-        const id = await axios.get("http://localhost:8080/find/id?email=" + email);
-        return `<div style="text-align:center;">해당 이메일로 가입된 아이디는 <a style="font-weight: bold">${id.data}</a>입니다.</div>`;
-    } catch (e) {
-        return `<div style="text-align:center;">해당 이메일로 가입된 아이디가 없습니다.</div>`;
-    }
+    const id = await axios.get("http://localhost:8080/find/id?email=" + email);
 
 };
-// todo : div밖으로 자꾸 댓글이 쳐나감 ㅅㅂ
+
+module.exports.findPw = async (email, id) => {
+    const sends = await axios.get('http://localhost:8080/find/pw?email=' + email + '&id=' + id);
+    await send.authSend(email, sends.data);
+};
+
+module.exports.findPwAUth = async (auth) => {
+    const auth = await axios.get("http://localhost:8080/find/auth")
+}

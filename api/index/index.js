@@ -39,6 +39,27 @@ router.get('/find/id', auth.indexLogin, async function(req, res) {
    const id = await user.findId(req.query.email);
    res.json(id);
 });
+
+router.get('/find/pw', auth.indexLogin, async function(req, res) {
+    try{
+        await user.findPw(req.query.email, req.query.id);
+        res.render("item/find/emailAuth");
+    } catch (e) {
+        console.log(e);
+        res.json(`<div style="text-align:center;">해당 정보로로 가입된 아이디가 없습니다.</div>`);
+    }
+});
+
+router.get('/find/pw/auth', auth.indexLogin, async function(req, res) {
+    const auth = user.findPwAuth(req.query.auth);
+    if(auth) {
+        res.render('item/find/change');
+        // todo : change 만들어야댐
+    } else {
+        throw new Error("오류라고");
+    }
+});
+
 router.get('/find', auth.indexLogin, async function (req, res) {
     res.render('item/findForm', {type : req.query.type});
 });

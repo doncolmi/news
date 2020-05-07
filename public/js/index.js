@@ -14,6 +14,16 @@ const warn = (item, i, text) => {
     document.getElementsByClassName('joinText')[i].innerHTML = text;
 }
 
+const emCheck = (value) => {
+    const pattern = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+    if(!(pattern.test(value))) {
+        alert("이메일을 입력하지 않았습니다.");
+        return false;
+    } else {
+        return true;
+    }
+};
+
 
 const main = {
     init : function() {
@@ -30,12 +40,6 @@ const main = {
         document.querySelector('#log').onclick = async function() {
             _this.login();
         };
-        document.querySelector('#find').onclick = function() {
-            move(document.getElementsByClassName('welcomes')[1]);
-        };
-        document.querySelector('#joinBacks').onclick = function() {
-            location.href="/";
-        };
         document.querySelector('#findIdBtn').onclick = async function() {
             await _this.emailForFindId(document.getElementById('findEmail').value);
         }
@@ -43,29 +47,37 @@ const main = {
             move(document.getElementsByClassName('wrapper')[0]);
             clearData();
         };
-        document.querySelector('#findId').onclick = function() {
-            $.ajax({
-                type: 'get',
-                url: '/find?type=id',
-            }).then(function(res) {
-                document.getElementById('findForm').innerHTML = res;
-                _this.findPwForm(_this);
-            }), function (error) {
-                alert("서버 오류입니다.");
+        document.querySelector('#findIdBtn').onclick = function() {
+            const email = document.getElementById('findId').value;
+            const check = emCheck(email);
+            if(check) {
+                $.ajax({
+                    type: 'get',
+                    url: '/find/id?email=' + email,
+                }).then(function(res) {
+                    document.getElementById('findIdRes').innerHTML = res;
+                }), function (error) {
+                    alert("서버 오류입니다.");
+                }
             }
         };
-        document.querySelector('#findPw').onclick = function() {
-            $.ajax({
-                type: 'get',
-                url: '/find?type=pw',
-            }).then(function(res) {
-                document.getElementById('findForm').innerHTML = res;
-                _this.findIdForm(_this);
-            }), function (error) {
-                alert("서버 오류입니다.");
+        document.querySelector('#findPwBtn').onclick = function() {
+            const id = document.getElementById('findPwId').value;
+            const email = document.getElementById('findPwEm').value;
+            const pattern = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+            if (id.length > 0 && pattern.test(email)) {
+                $.ajax({
+                    type: 'get',
+                    url: '/find/pw?email=' + email + '&id=' + id,
+                }).then(function (res) {
+                    document.getElementById('findPwRes').innerHTML = res;
+                }), function (error) {
+                    alert("서버 오류입니다.");
+                }
+            } else {
+                alert("정보를 제대로 입력해주세요.");
             }
-        };
-
+        },
         document.querySelector('#join').onclick = async function() {
             await _this.idCheck();
             await _this.pwCheck();
@@ -206,86 +218,23 @@ const main = {
             alert("서버 오류입니다.");
         }
     },
-    findIdForm : function() {
-        document.querySelector('#findId').onclick = function(th) {
-            $.ajax({
-                type: 'get',
-                url: '/find?type=id',
-            }).then(function(res) {
-                document.getElementById('findForm').innerHTML = res;
-                document.querySelector('#findPw').onclick = function() {
-                    $.ajax({
-                        type: 'get',
-                        url: '/find?type=pw',
-                    }).then(function(res) {
-                        document.getElementById('findForm').innerHTML = res;
-                    }), function (error) {
-                        alert("서버 오류입니다.");
-                    }
-                };
-            }), function (error) {
-                alert("서버 오류입니다.");
-            }
-        };
-    },
-    findPwForm : function(th) {
-        document.querySelector('#findPw').onclick = function() {
-            $.ajax({
-                type: 'get',
-                url: '/find?type=pw',
-            }).then(function(res) {
-                document.getElementById('findForm').innerHTML = res;
-                document.querySelector('#findId').onclick = function() {
-                    $.ajax({
-                        type: 'get',
-                        url: '/find?type=id',
-                    }).then(function(res) {
-                        document.getElementById('findForm').innerHTML = res;
-                    }), function (error) {
-                        alert("서버 오류입니다.");
-                    }
-                };
-            }), function (error) {
-                alert("서버 오류입니다.");
-            }
-        };
-    }
 };
 let idc = false; let pwc = false; let emailc = false;
 clearData();
 main.init();
-function
 
-// const main = {
-//     init : function() {
-//         const _this = this;
-//         document.querySelector('#send').onclick = function() {
-//             _this.logout();
-//         }
-//     },
-//     logout : function() {
-//         const data = {
-//             "UID" : document.getElementById('UID').value,
-//             "PASSWORD": document.getElementById('PASSWORD').value,
-//             "EMAIL": document.getElementById('EMAIL').value,
-//         }
-//         console.log(data);
-//         const url = "http://localhost:8080/user";
-//         $.ajax({
-//             type: 'POST',
-//             url: url,
-//             dataType: 'json',
-//             contentType: 'application/json; charset=utf-8',
-//             data: JSON.stringify(data)
-//         }).then(function(res) {
-//             console.log(res);
-//             alert("안녕!");
-//             location.href="/";
-//         }, function(error) {
-//             console.log(error);
-//             alert("실패");
-//         });
-//     }
-// };
-// main.init();
-// console.log("헬로");
+function authCheck() {
+    const auth = document.getElementById('authNumber').value;
+    if(auth.length === 6) {
+        $.ajax({
+            type: 'get',
+            url: '/find/pw/auth?auth=' + auth,
+        }).then(function(res) {
+            document.getElementById('findPwRes').innerHTML = res;
+        }).catch(function(err) {
+            alert("오류오류오류 합쳐서 십오류");
+        })
+    } else {
+        alert("인증번호가 올바르지 않아요~");
+    }
+}
