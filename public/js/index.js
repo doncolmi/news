@@ -222,19 +222,3 @@ const main = {
 let idc = false; let pwc = false; let emailc = false;
 clearData();
 main.init();
-
-function authCheck() {
-    const auth = document.getElementById('authNumber').value;
-    if(auth.length === 6) {
-        $.ajax({
-            type: 'get',
-            url: '/find/pw/auth?auth=' + auth,
-        }).then(function(res) {
-            document.getElementById('findPwRes').innerHTML = res;
-        }).catch(function(err) {
-            alert("오류오류오류 합쳐서 십오류");
-        })
-    } else {
-        alert("인증번호가 올바르지 않아요~");
-    }
-}

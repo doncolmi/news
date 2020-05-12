@@ -50,12 +50,10 @@ router.get('/find/pw', auth.indexLogin, async function(req, res) {
     }
 });
 
-router.get('/find/pw/auth', auth.indexLogin, async function(req, res) {
-    const auth = user.findPwAuth(req.query.auth);
-    if(auth) {
-        res.render('item/find/change');
-        // todo : change 만들어야댐
-    } else {
+router.post('/find/pw', auth.indexLogin, async function(req, res) {
+    try{
+        await user.changePw(req.body.data.pw);
+    } catch (e) {
         throw new Error("오류라고");
     }
 });

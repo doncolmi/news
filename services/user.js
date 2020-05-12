@@ -52,9 +52,6 @@ const main = {
         const code = await axios.get("http://localhost:8080/code?data=" + email);
         await send.send(email, code.data);
         return true;
-    },
-    findPwAuth(auth) {
-        return undefined;
     }
 }
 module.exports = main;
@@ -66,14 +63,38 @@ module.exports.getSetting = async (id) => {
 
 module.exports.findId = async (email) => {
     const id = await axios.get("http://localhost:8080/find/id?email=" + email);
-
 };
 
 module.exports.findPw = async (email, id) => {
     const sends = await axios.get('http://localhost:8080/find/pw?email=' + email + '&id=' + id);
-    await send.authSend(email, sends.data);
-};
+    if(sends.data.length === 6) {
+        const password = await encrypt.joinEncPw(sends.data);
+        const data = {
+            pw : password.pw,
+            salt : password.salt,
+            email : email,
+        }
+        const result = await axios({
+            method: 'post',
+            headers: {
+                'dataType': 'json',
+                'Content-type' : 'application/json; charset=utf-8',
+            },
+            url: 'http://localhost:8080/find/pw',
+            data: JSON.stringify(data),
+        }).catch((err) => {
+            console.log(err);
+            return 0;
+        });
 
-module.exports.findPwAUth = async (auth) => {
-    const auth = await axios.get("http://localhost:8080/find/auth")
-}
+        if(result.data) {
+            await send.authSend(email, sends.data);
+            console.log("보냈다!");
+        } else {
+            console.log(sends.data);
+            throw new Error("result 에러");
+        }
+    } else {
+        throw new Error("sends 에러");
+    }
+};
