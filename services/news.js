@@ -193,7 +193,9 @@ const de = {
             press : news.press.name,
             contents : news.contents,
             topic : news.topic.name,
+            href : news.href,
         }
+        // todo : 기사열때 이 아이디를 가진 사람이 이 기사를 저장했는지 확인하기.
         return data;
     },
 }

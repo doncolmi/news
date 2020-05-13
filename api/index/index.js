@@ -50,14 +50,6 @@ router.get('/find/pw', auth.indexLogin, async function(req, res) {
     }
 });
 
-router.post('/find/pw', auth.indexLogin, async function(req, res) {
-    try{
-        await user.changePw(req.body.data.pw);
-    } catch (e) {
-        throw new Error("오류라고");
-    }
-});
-
 router.get('/find', auth.indexLogin, async function (req, res) {
     res.render('item/findForm', {type : req.query.type});
 });
@@ -65,6 +57,13 @@ router.get('/find', auth.indexLogin, async function (req, res) {
 router.get('/logout', async function(req, res, next) {
     await req.session.destroy(err => {console.log(err)});
     res.redirect('/');
+});
+
+router.get('/follow', auth.login, async function(req, res) {
+    const id = req.session.key.id;
+    const press = await user.getFollowPress(id);
+    const topic = await user.getFollowTopic(id);
+    res.render('item/followList', {press : press, topic : topic});
 });
 
 

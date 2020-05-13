@@ -24,6 +24,9 @@ const main = {
         document.getElementById('setIcon').onclick = function() {
             _this.checkSet();
         }
+        document.getElementById('followModal').onclick = function() {
+            _this.openFollow();
+    }
     },
     commentSet : function() {
         const now = document.getElementById('commentSet').checked;
@@ -52,6 +55,16 @@ const main = {
     },
     whiteBoard : function() {
         document.getElementById('newsModalContent').innerHTML = '';
+    },
+    openFollow : function() {
+        $.ajax({
+            type: 'get',
+            url : '/follow',
+        }).then(function(res) {
+            document.getElementById('followZone').innerHTML = res;
+        }), function(err) {
+            console.log(err);
+        }
     }
 };
 

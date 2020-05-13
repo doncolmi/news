@@ -52,7 +52,7 @@ const main = {
         const code = await axios.get("http://localhost:8080/code?data=" + email);
         await send.send(email, code.data);
         return true;
-    }
+    },
 }
 module.exports = main;
 
@@ -98,3 +98,14 @@ module.exports.findPw = async (email, id) => {
         throw new Error("sends 에러");
     }
 };
+
+module.exports.getFollowPress = async (id) => {
+    const res = await axios.get("http://localhost:8080/follow/press?id=" + id);
+    console.log(res.data);
+    return res.data
+}
+
+module.exports.getFollowTopic = async (id) => {
+    const res = await axios.get("http://localhost:8080/follow/topic?id=" + id);
+    return res.data
+}

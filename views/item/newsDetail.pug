@@ -5,9 +5,14 @@
         .nNInfo
             small 작성시간 : #{news.date}
         .nNInfo
-            a #{news.press} / #{news.topic}
+            small #{news.press} / #{news.topic}
     .nNewsCon
         != news.contents
+    .mb-1
+        .nNInfo
+            a(style="font-size:0.8em;", href=news.href) 뉴스 원문 보러가기
+        .nNInfo
+            small 쁘르르르
     .replys
         if(!set)
             .noReply#noReply 현재 댓글 감추기 기능을 사용중입니다.

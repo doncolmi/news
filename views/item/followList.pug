@@ -1,0 +1,16 @@
+.followZone
+    .title 팔로우한 언론사
+    hr
+    -if(press.length > 0)
+        -for(const item of press)
+            .followItem #{item.press.name}
+    -else
+        small.mt-2.text-center 팔로우하고 있는 언론사가 없습니다.
+.followZone.mt-5
+    .title 팔로우한 주제
+    hr
+    -if(topic.length > 0)
+        -for (const item of topic)
+            .followItem #{item.topic.name}
+    -else
+        small.mt-2.text-center 팔로우하고 있는 주제가 없습니다.

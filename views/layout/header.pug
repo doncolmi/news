@@ -11,7 +11,7 @@
             .myId
                 a #{name}
             .like.mt-1
-                small 팔로우 현황 보기
+                small#followModal(style="cursor: pointer",data-dismiss="modal" data-toggle="modal", data-target="#followBoard") 팔로우 현황 보기
                 br
                 small 저장한 기사 보기
         .elem#myNews
@@ -46,6 +46,34 @@
                         .checks.custom-control.custom-switch
                             input.custom-control-input#commentSet(type="checkbox")
                             label.custom-control-label#commentSetLabel(for="commentSet")
+    .modal.fade#followBoard
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    h4.modal-title 팔로우 현황
+                    button.close(type="button", data-dismiss="modal") &times;
+                .modal-body#followZone
+                    .followZone
+                        .title 팔로우한 언론사
+                        hr
+                        .followItem 대성일보
+                        .followItem JTBC
+                        .followItem AM
+                        .followItem 세글자
+                        .followItem 롤
+                        .followItem 먼일보
+                        .followItem 네글자로
+                        .followItem 다섯글자도
+                        .followItem ZDNet Korea
+                        .followItem 언빌리버블
+                        .followItem 이게나
+                        .followItem 하늘
+                    .followZone.mt-5
+                        .title 팔로우한 주제
+                        hr
+                        .followItem 경제
+                        .followItem 정치
+                        .followItem IT
     .modal.fade#newsModal
         .modal-dialog.modal-xl
             .modal-content

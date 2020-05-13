@@ -137,3 +137,24 @@ small {
     color:gray;
 }
 
+.followZone {
+    color : white;
+}
+
+.followZone .title {
+    text-align: center;
+    font-size:0.9em;
+    font-weight: bold;
+    color: black;
+}
+
+.followItem {
+    font-size: 0.8em;
+    display: inline-block;
+    padding: 1.5% 3%;
+    background-color: #7abaff;
+    font-weight: bold;
+    border-radius: 15px;
+    margin-bottom: 1%;
+    margin-right: 1%;
+}
