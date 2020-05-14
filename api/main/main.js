@@ -71,4 +71,8 @@ router.get('/test', auth.login, function (req, res) {
     res.render('user/test', {name : req.session.key.id});
 });
 
+router.get('/save', auth.login, function (req, res) {
+    res.render('user/saveNews', {name : req.session.key.id});
+});
+
 module.exports = router;

@@ -26,7 +26,10 @@ const main = {
         }
         document.getElementById('followModal').onclick = function() {
             _this.openFollow();
-    }
+        }
+        document.getElementById('saveNewsGo').onclick = function() {
+            location.href="/main/save";
+        }
     },
     commentSet : function() {
         const now = document.getElementById('commentSet').checked;

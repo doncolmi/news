@@ -11,8 +11,11 @@
     .mb-1
         .nNInfo
             a(style="font-size:0.8em;", href=news.href) 뉴스 원문 보러가기
-        .nNInfo
-            small 쁘르르르
+        .nNInfo#saveNews
+            -if(news.save > 0)
+                a(style="font-size:0.8em;", href="#", onclick="saveDelete(" + news.save +")") 뉴스 저장 지우기
+            -else
+                a(style="font-size:0.8em;", href="#", onclick="saveNews(" + news.id +")") 뉴스 저장하기
     .replys
         if(!set)
             .noReply#noReply 현재 댓글 감추기 기능을 사용중입니다.

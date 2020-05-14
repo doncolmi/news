@@ -138,3 +138,16 @@ img {
     font-size:1.3em;
     margin: 3% 0%;
 }
+.media_end_summary {
+    display: block;
+    text-align: center;
+}
+.end_photo_org {
+    display: block;
+    margin: 1% 0%;
+}
+.img_desc {
+    display: block;
+    text-align: center;
+    margin-top:0.5%;
+}

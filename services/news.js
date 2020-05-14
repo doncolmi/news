@@ -171,7 +171,7 @@ const de = {
         }
         return res;
     },
-    getNewsLe : async function(id)  {
+    getNewsLe : async function(id, uId)  {
         const newsWrapper = await axios.get("http://localhost:8080/news/" + id);
         const news = newsWrapper.data;
         const $ = await cheerio.load(news.contents);
@@ -194,10 +194,11 @@ const de = {
             contents : news.contents,
             topic : news.topic.name,
             href : news.href,
+            save : await checkSave(uId, news.id)
         }
-        // todo : 기사열때 이 아이디를 가진 사람이 이 기사를 저장했는지 확인하기.
         return data;
     },
+
 }
 
 function makeTime(time) {
@@ -220,6 +221,10 @@ function makeTime(time) {
         day_diff >= 360 && (Math.floor( day_diff / 360 )==0?1:Math.floor( day_diff / 360 )) + " 년 전"
 }
 
+async function checkSave(uId, nId) {
+    const res = await axios.get(`http://localhost:8080/news/save/chk?uId=${uId}&nId=${nId}`);
+    return res.data;
+}
 
 module.exports = de;
 
@@ -305,6 +310,62 @@ module.exports.getAddReply = async (id, page) => {
             name : item.user.uid,
             date : makeTime(time),
             contents : item.contents,
+        }
+        res.push(data);
+    }
+    return res;
+}
+
+module.exports.saveNews = async (uId, nId) => {
+    const data = {
+        userId : uId,
+        newsId : nId * 1
+    }
+    const saveNews = await axios({
+        method: 'post',
+        headers: {
+            'dataType': 'json',
+            'Content-type' : 'application/json; charset=utf-8',
+        },
+        url: 'http://localhost:8080/news/save',
+        data: data,
+    }).catch(err => console.log(err));
+    return saveNews.data;
+}
+
+module.exports.deleteNews = async (id) => {
+    const del = await axios.delete('http://localhost:8080/news/save/' + id);
+    return del.data;
+}
+
+module.exports.cntSaveNews = async (id) => {
+    const cnt = await axios.get('http://localhost:8080/news/save/cnt?id=' + id);
+    return cnt.data;
+}
+
+module.exports.getSaveNews = async (page, id) => {
+    const news = await axios.get('http://localhost:8080/news/save?page=' + (page * 1) + '&id=' + id);
+    const res = [];
+    for(const item of news.data) {
+        const $ = await cheerio.load(item.contents);
+        let img = await $("img").attr("src");
+        let text = await $.text();
+        if(!img) img = '/img/news.png';
+        !text ? text = "본문이 사진으로 이루어져있거나 내용이 없는 기사입니다."
+            : text = text.substr(0,200) + "...";
+
+        if(!(item.createdDate[5])) item.createdDate[5] = '00';
+        if((item.createdDate[1] * 1) < 10) {
+            item.createdDate[1] = '0' + item.createdDate[1];
+        }
+        const time = `${item.createdDate[0]}-${item.createdDate[1]}-${item.createdDate[2]}T${item.createdDate[3]}:${item.createdDate[4]}:${item.createdDate[5]}`;
+        const data = {
+            id : item.id,
+            title : item.title,
+            date : makeTime(time),
+            name : item.press.name,
+            img : img,
+            text : text
         }
         res.push(data);
     }

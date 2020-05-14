@@ -90,3 +90,23 @@ function showThis() {
     document.getElementById('noReply').style.display = 'none';
     document.getElementById('replyBox').style.display = 'inherit';
 }
+function saveNews(id) {
+    $.ajax({
+        type : 'get',
+        url : '/news/save/' + id,
+    }).then(function(res) {
+        document.getElementById('saveNews').innerHTML = res;
+    }).catch(err => {
+        console.log(err);
+    });
+}
+function saveDelete(id) {
+    $.ajax({
+        type : 'delete',
+        url : '/news/save/' + id,
+    }).then(function(res) {
+        document.getElementById('saveNews').innerHTML = res;
+    }).catch(err => {
+        console.log(err);
+    });
+}
