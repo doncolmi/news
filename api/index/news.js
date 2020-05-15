@@ -65,6 +65,11 @@ router.get('/:id/reply', auth.login, async function (req, res) {
      res.render('item/addReply', {name : req.session.key.id ,reply : reply});
 })
 
+router.get('/save/cnt', auth.login, async function(req, res) {
+    const cnt = await newsService.cntSaveNews(req.session.key.id);
+    res.json(cnt);
+})
+
 router.get('/save/:id', auth.login, async function (req, res) {
     const save = await newsService.saveNews(req.session.key.id, req.params.id);
     res.render('item/saveNews/saveNews', {save : save, id : req.params.id})
@@ -74,14 +79,8 @@ router.delete('/save/:id', auth.login, async function(req, res) {
     res.render('item/saveNews/deleteNews', {news : del})
 })
 
-router.get('/save/cnt', auth.login, async function(req, res) {
-    const cnt = await newsService.cntSaveNews(req.session.key.id);
-    res.json((cnt.data / 10));
-})
 
-router.get('/save', auth.login, async function(req, res) {
-    const news = await newsService.getSaveNews(req.session.key.id, req.params.page);
-    res.render('item/news', {list : news});
-})
+
+
 
 module.exports = router;

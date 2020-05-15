@@ -1,4 +1,4 @@
-let page = 0;
+var page = 0;
 
 document.getElementById('myNews').classList.remove('activeMenu');
 
@@ -13,25 +13,24 @@ $.ajax({
         document.getElementById('load').style.display = 'none';
     }
 }).then(function(res) {
-    const lastPage = res;
-
-    const ajax = function() {
+    const lastPage = res / 10;
+    const ajax = () => {
         $.ajax({
             type: 'get',
-            url: '/news/save?page=' + page
+            url: `/save?page=` + page
         }).then(function (res) {
             document.getElementById('boxs').innerHTML += res;
             page++;
-        }), function (error) {
-            alert("오류잖아.");
-        }};
-
-
-    const options = { threshold: 1.0 };
+            console.log("훔..." + page);
+        }).catch(function (err) {
+            console.log(err);
+        });
+    };
+    const options = {threshold: 1.0};
     const callback = (entries, observer) => {
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
-                if(page < lastPage) {
+                if (page < lastPage) {
                     ajax();
                 } else {
                     observer.unobserve(entry.target);
@@ -43,6 +42,4 @@ $.ajax({
     observer.observe(
         document.getElementById('plus')
     );
-}).catch(async err => {
-    alert("헬로");
-});
+})

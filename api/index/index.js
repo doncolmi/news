@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const user = require('../../services/user');
 const auth = require('../../services/util/auth');
+const newsService = require('../../services/news');
 
 router.get('/', auth.indexLogin, async function(req, res) {
     res.render('index');
@@ -65,6 +66,11 @@ router.get('/follow', auth.login, async function(req, res) {
     const topic = await user.getFollowTopic(id);
     res.render('item/followList', {press : press, topic : topic});
 });
+
+router.get('/save', auth.login, async function(req, res) {
+    const news = await newsService.getSaveNews(req.session.key.id, req.query.page);
+    res.render('item/news', {list : news});
+})
 
 
 module.exports = router;

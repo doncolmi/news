@@ -1,9 +1,13 @@
 include ../layout/head.pug
     title 소식
     link(rel='stylesheet', href='/css/mainNews.css')
+    link(rel='stylesheet', href='/css/topic.css')
 body
     include ../layout/header.pug
     .contents
+        .pTitle
+            h1 저장한 기사 목록
+            small 회원님이 저장하신 기사들 목록입니다.
         div#boxs
         #plus.mt-5
     include ../layout/footer.pug
