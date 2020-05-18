@@ -6,10 +6,11 @@
                 i#setIcon(class="fas fa-cog", data-toggle="modal", data-target="#setBoard")
                 i#logout(class="fas fa-power-off")
         .userInfo
-            .userImg
-            hr
-            .myId
-                a #{name}
+            #goMypage
+                .userImg
+                hr
+                .myId
+                    a #{name}
             .like.mt-1
                 small#followModal(style="cursor: pointer",data-dismiss="modal" data-toggle="modal", data-target="#followBoard") 팔로우 현황 보기
                 br

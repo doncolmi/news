@@ -134,7 +134,7 @@ function topicFollow() {
                 alert("오류잖아.");
             }
 
-            const ajax = function() {
+            const ajax2 = function() {
                 $.ajax({
                     type: 'post',
                     url: '/main/myNews',
@@ -153,7 +153,7 @@ function topicFollow() {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
                         if(page < lastPage) {
-                            ajax();
+                            ajax2();
                         } else {
                             observer.unobserve(entry.target);
                         }
@@ -175,6 +175,7 @@ pressFollow();
 document.getElementById('presss').onclick = async function () {
     page = 1;
     await pressFollow();
+    console.log("실행");
 };
 document.getElementById('topics').onclick = async function () {
     page = 1;

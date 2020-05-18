@@ -1,0 +1,21 @@
+include ../../layout/head.pug
+    title 소식
+    link(rel='stylesheet', href='/css/myNews.css')
+body
+    include ../../layout/header.pug
+    .contents
+        .myPageTitle
+            .title 비밀번호 인증
+            small.subtitle 비밀번호 수정을 위해선 현재 비밀번호를 입력해야 합니다.
+            hr
+        .myPageInfo
+            .elements
+                .elemTitle.mb-2 비밀번호
+                input.form-control.w-25#authPw(type="password", style="margin:0 auto;")
+        .myPageBtn
+            .ob.mb-2
+                button.btn.btn-primary#modPw 인증하기
+            .ob
+                button.btn.btn-danger(onclick="location.href='/main/my'") 돌아가기
+    include ../../layout/footer.pug
+    script(src="/js/authPw.js")

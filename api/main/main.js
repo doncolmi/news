@@ -4,7 +4,8 @@ const auth = require('../../services/util/auth');
 const pressService = require('../../services/press');
 const topicService = require('../../services/topic');
 const mainService = require('../../services/main');
-const newsService = require('../../services/news');
+const newsService = require('../../services/news')
+const userService = require('../../services/user');
 
 
 router.get('/', auth.login, function (req, res) {
@@ -74,5 +75,14 @@ router.get('/test', auth.login, function (req, res) {
 router.get('/save', auth.login, function (req, res) {
     res.render('user/saveNews', {name : req.session.key.id});
 });
+
+router.get('/my', auth.login, async function (req, res) {
+    const myInfo = await userService.getUserInfo(req.session.key.id);
+    res.render('user/myPage', {info : myInfo, name : req.session.key.id});
+});
+
+router.get('/authpw', auth.login, async function (req, res) {
+    res.render('user/mod/authPw');
+})
 
 module.exports = router;

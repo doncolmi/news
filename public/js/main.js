@@ -30,6 +30,9 @@ const main = {
         document.getElementById('saveNewsGo').onclick = function() {
             location.href="/main/save";
         }
+        document.getElementById('goMypage').onclick = function() {
+            location.href="/main/my"
+        }
     },
     commentSet : function() {
         const now = document.getElementById('commentSet').checked;

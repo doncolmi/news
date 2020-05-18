@@ -1,0 +1,29 @@
+.contents {
+    text-align: center;
+}
+
+.myPageTitle .title {
+    font-weight: bold;
+    font-size: 3rem;
+}
+
+.myPageTitle .subtitle {
+    color: gray;
+}
+
+.myPageInfo .elemTitle {
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+.elements {
+    margin-top: 3%;
+}
+
+.elements hr {
+    width: 10%;
+}
+
+.myPageBtn {
+    margin-top : 4%;
+}

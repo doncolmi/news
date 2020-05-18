@@ -1,0 +1,26 @@
+include ../layout/head.pug
+    title 소식
+    link(rel='stylesheet', href='/css/myNews.css')
+body
+    include ../layout/header.pug
+    .contents
+        .myPageTitle
+            .title 마이페이지
+            small.subtitle 마이페이지에서는 정보를 확인하거나 수정할 수 있습니다.
+            hr
+        .myPageInfo
+            .elements
+                .elemTitle 아이디
+                hr
+                .elemSubTitle #{info.id}
+            .elements
+                .elemTitle 이메일
+                hr
+                .elemSubTitle #{info.email}
+        .myPageBtn
+            .ob.mb-2
+                button.btn.btn-primary#modPw 암호 수정하기
+            .ob
+                button.btn.btn-danger 소식 탈퇴하기
+    include ../layout/footer.pug
+    script(src="/js/myPage.js")

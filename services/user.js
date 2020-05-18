@@ -109,3 +109,8 @@ module.exports.getFollowTopic = async (id) => {
     const res = await axios.get("http://localhost:8080/follow/topic?id=" + id);
     return res.data
 }
+
+module.exports.getUserInfo = async (id) => {
+    const res = await axios.get('http://localhost:8080/user/info?id=' + id);
+    return res.data;
+}
