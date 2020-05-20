@@ -114,3 +114,33 @@ module.exports.getUserInfo = async (id) => {
     const res = await axios.get('http://localhost:8080/user/info?id=' + id);
     return res.data;
 }
+
+module.exports.authPw = async (id, pw) => {
+    const salt = await axios.get('http://localhost:8080/salt?data=' + id);
+    const password = await encrypt.getEncPw(pw, salt);
+    const result = await axios.get('http://localhost:8080/user/auth?id=' + id +'&pw=' + password);
+    return result.data;
+}
+
+module.exports.chgPwInMyPage = async (id, pw) => {
+    const password = await encrypt.joinEncPw(pw);
+    const data = {
+        pw : password.pw,
+        salt : password.salt,
+        id : id
+    }
+    const result = await axios({
+        method: 'post',
+        headers: {
+            'dataType': 'json',
+            'Content-type' : 'application/json; charset=utf-8',
+        },
+        url: 'http://localhost:8080/user/info',
+        data: JSON.stringify(data),
+    }).catch((err) => {
+        console.log(err);
+        return false;
+    });
+
+    return result.data;
+}

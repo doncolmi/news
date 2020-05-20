@@ -15,6 +15,8 @@ function pressFollow() {
     document.getElementsByClassName('type')[0].style.color = 'black';
     document.getElementsByClassName('type')[1].style.fontWeight = 'normal';
     document.getElementsByClassName('type')[1].style.color = 'gray';
+    document.getElementById('plus').style.display='block';
+    document.getElementById('plusTopic').style.display='none';
     $.ajax({
         type: 'get',
         url: '/main/cnt/press',
@@ -94,6 +96,8 @@ function topicFollow() {
     document.getElementsByClassName('type')[1].style.color = 'black';
     document.getElementsByClassName('type')[0].style.fontWeight = 'normal';
     document.getElementsByClassName('type')[0].style.color = 'gray';
+    document.getElementById('plus').style.display='none';
+    document.getElementById('plusTopic').style.display='block';
     $.ajax({
         type: 'get',
         url: '/main/cnt/topic',
@@ -162,7 +166,7 @@ function topicFollow() {
             }
             const observer = new IntersectionObserver(callback, options);
             observer.observe(
-                document.getElementById('plus')
+                document.getElementById('plusTopic')
             );
         }
     }).catch(async err => {

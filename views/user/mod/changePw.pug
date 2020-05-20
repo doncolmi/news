@@ -1,0 +1,17 @@
+.myPageTitle
+    .title 비밀번호 변경
+    small.subtitle 비밀번호 양식에 맞게 입력해주세요.
+    hr
+.myPageInfo
+    .elements
+        .elemTitle.mb-2 비밀번호
+        input.form-control.w-25#pw(type="password", style="margin:0 auto;", placeholder="6~20자 이내의 비밀번호를 작성해주세요.")
+        .elemText
+        .elemTitle.mb-2 비밀번호 확인
+        input.form-control.w-25#pwc(type="password", style="margin:0 auto;", placeholder="6~20자 이내의 비밀번호를 작성해주세요.")
+        .elemText
+.myPageBtn
+    .ob.mb-2
+        button.btn.btn-primary#chgPw 변경하기
+    .ob
+        button.btn.btn-danger(onclick="location.href='/main/my'") 돌아가기
