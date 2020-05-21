@@ -144,3 +144,7 @@ module.exports.chgPwInMyPage = async (id, pw) => {
 
     return result.data;
 }
+
+module.exports.byeUser = async (id) => {
+    await axios.get("http://localhost:8080/bye?id=" + id);
+}

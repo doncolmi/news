@@ -72,5 +72,11 @@ router.get('/save', auth.login, async function(req, res) {
     res.render('item/news', {list : news});
 })
 
+router.get('/bye', auth.login, async function(req, res) {
+    await user.byeUser(req.session.key.id);
+    req.session.destroy(err => {console.log(err)});
+    res.redirect("/");
+})
+
 
 module.exports = router;
