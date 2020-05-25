@@ -19,11 +19,11 @@ class joinUser {
                 'dataType': 'json',
                 'Content-type' : 'application/json; charset=utf-8',
             },
-            url: 'http://localhost:8080/user',
+            url: 'http://ec2-15-165-158-209.ap-northeast-2.compute.amazonaws.com:18502/user',
             data: JSON.stringify(this),
         })
             .then(async (res) => {
-                const code = await axios.get('http://localhost:8080/code?data=' + this.id);
+                const code = await axios.get('http://ec2-15-165-158-209.ap-northeast-2.compute.amazonaws.com:18502/code?data=' + this.id);
                 try{
                     await email(this.email, code.data);
                 } catch (e) {
