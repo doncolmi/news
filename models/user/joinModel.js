@@ -19,13 +19,13 @@ class joinUser {
                 'dataType': 'json',
                 'Content-type' : 'application/json; charset=utf-8',
             },
-            url: 'http://ec2-15-165-158-209.ap-northeast-2.compute.amazonaws.com:18502/user',
+            url: 'http://ec2-13-124-136-228.ap-northeast-2.compute.amazonaws.com:18502/user',
             data: JSON.stringify(this),
         })
             .then(async (res) => {
-                const code = await axios.get('http://ec2-15-165-158-209.ap-northeast-2.compute.amazonaws.com:18502/code?data=' + this.id);
+                const code = await axios.get('http://ec2-13-124-136-228.ap-northeast-2.compute.amazonaws.com:18502/code?data=' + this.id);
                 try{
-                    await email(this.email, code.data);
+                    await email.send(this.email, code.data);
                 } catch (e) {
                     console.log(e);
                     console.log("이메일 발송 실패");
