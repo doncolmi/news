@@ -14,7 +14,7 @@ class News {
     saveNews() {
         axios({
             method: 'post',
-            url: 'http://ec2-13-124-136-228.ap-northeast-2.compute.amazonaws.com:18502/news',
+            url: 'http://ec2-13-125-237-51.ap-northeast-2.compute.amazonaws.com:15688/news',
             data: this,
             headers: {
                 dataType: 'json',
