@@ -32,20 +32,37 @@ module.exports.getNewsList = async function(page) {
 };
 
 module.exports.getNewsRecent = async function() {
-    const news = await axios.get('http://ec2-13-125-237-51.ap-northeast-2.compute.amazonaws.com:15688/news/recent');
-    const res = [];
-    for(const item of news.data) {
-        const $ = await cheerio.load(item.contents);
-        let img = await $("img").attr("src");
-        if(!img) img = '/img/news.png';
-        const data = {
-            id : item.id,
-            title : item.title,
-            img : img
+    const cnt = await axios.get('http://ec2-13-125-237-51.ap-northeast-2.compute.amazonaws.com:15688/press/' + encodeURI(name) + '/cnt').catch(err => console.log(err));
+    const newsId = [];
+    const lowId;
+    if(cnt.data > 5000) {
+        lowId = cnt.data - 5000;
+        for(let i = 0; i < 5; i++) {
+            newsId.push(Math.floor(Math.random() * (cnt.data - lowId) + lowId));
         }
-        res.push(data);
+    } else {
+        for(let i = 0; i < 5; i++) {
+            newsId.push(Math.floor(Math.random() * (cnt.data - 1) + 1));
+        }
     }
-    return res;
+    if(newsId.length === 5) {
+        const news = await axios.get(`http://ec2-13-125-237-51.ap-northeast-2.compute.amazonaws.com:15688/news/recent?o=${newsId[0]}&t=${newsId[1]}&th=${newsId[2]}&f=${newsId[3]}&fi=${newsId[4]}`);
+        const res = [];
+        for(const item of news.data) {
+            const $ = await cheerio.load(item.contents);
+            let img = await $("img").attr("src");
+            if(!img) img = '/img/news.png';
+            const data = {
+                id : item.id,
+                title : item.title,
+                img : img
+            }
+            res.push(data);
+        }
+        return res;
+    } else {
+        const news = await axios.get(`http://ec2-13-125-237-51.ap-northeast-2.compute.amazonaws.com:15688/news/recent?o=1&t=2&th=3&f=4&fi=5`);
+    }
 };
 
 module.exports.cntNews = async function() {
