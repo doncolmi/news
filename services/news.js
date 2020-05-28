@@ -32,9 +32,9 @@ module.exports.getNewsList = async function(page) {
 };
 
 module.exports.getNewsRecent = async function() {
-    const cnt = await axios.get('http://ec2-13-125-237-51.ap-northeast-2.compute.amazonaws.com:15688/press/' + encodeURI(name) + '/cnt').catch(err => console.log(err));
+    const cnt = await axios.get('http://ec2-13-125-237-51.ap-northeast-2.compute.amazonaws.com:15688/news/cnt');
     const newsId = [];
-    const lowId;
+    let lowId;
     if(cnt.data > 5000) {
         lowId = cnt.data - 5000;
         for(let i = 0; i < 5; i++) {
@@ -62,6 +62,18 @@ module.exports.getNewsRecent = async function() {
         return res;
     } else {
         const news = await axios.get(`http://ec2-13-125-237-51.ap-northeast-2.compute.amazonaws.com:15688/news/recent?o=1&t=2&th=3&f=4&fi=5`);
+        for(const item of news.data) {
+            const $ = await cheerio.load(item.contents);
+            let img = await $("img").attr("src");
+            if(!img) img = '/img/news.png';
+            const data = {
+                id : item.id,
+                title : item.title,
+                img : img
+            }
+            res.push(data);
+        }
+        return res;
     }
 };
 
