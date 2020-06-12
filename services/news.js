@@ -3,7 +3,7 @@ const newsModel = require('../models/newsModel');
 const cheerio = require('cheerio');
 
 module.exports.getNewsList = async function(page) {
-    const news = await axios.get('http://ec2-13-125-237-51.ap-northeast-2.compute.amazonaws.com:15688/news?page=' + (page * 1));
+    const news = await axios.get('http://ec2-13-209-19-217.ap-northeast-2.compute.amazonaws.com:15688/news?page=' + (page * 1));
     const res = [];
     for(const item of news.data) {
         const $ = await cheerio.load(item.contents);
@@ -32,7 +32,7 @@ module.exports.getNewsList = async function(page) {
 };
 
 module.exports.getNewsRecent = async function() {
-    const cnt = await axios.get('http://ec2-13-125-237-51.ap-northeast-2.compute.amazonaws.com:15688/news/cnt');
+    const cnt = await axios.get('http://ec2-13-209-19-217.ap-northeast-2.compute.amazonaws.com:15688/news/cnt');
     const newsId = [];
     let lowId;
     if(cnt.data > 5000) {
@@ -46,7 +46,7 @@ module.exports.getNewsRecent = async function() {
         }
     }
     if(newsId.length === 5) {
-        const news = await axios.get(`http://ec2-13-125-237-51.ap-northeast-2.compute.amazonaws.com:15688/news/recent?o=${newsId[0]}&t=${newsId[1]}&th=${newsId[2]}&f=${newsId[3]}&fi=${newsId[4]}`);
+        const news = await axios.get(`http://ec2-13-209-19-217.ap-northeast-2.compute.amazonaws.com:15688/news/recent?o=${newsId[0]}&t=${newsId[1]}&th=${newsId[2]}&f=${newsId[3]}&fi=${newsId[4]}`);
         const res = [];
         for(const item of news.data) {
             const $ = await cheerio.load(item.contents);
@@ -61,7 +61,7 @@ module.exports.getNewsRecent = async function() {
         }
         return res;
     } else {
-        const news = await axios.get(`http://ec2-13-125-237-51.ap-northeast-2.compute.amazonaws.com:15688/news/recent?o=1&t=2&th=3&f=4&fi=5`);
+        const news = await axios.get(`http://ec2-13-209-19-217.ap-northeast-2.compute.amazonaws.com:15688/news/recent?o=1&t=2&th=3&f=4&fi=5`);
         for(const item of news.data) {
             const $ = await cheerio.load(item.contents);
             let img = await $("img").attr("src");
@@ -78,12 +78,12 @@ module.exports.getNewsRecent = async function() {
 };
 
 module.exports.cntNews = async function() {
-    const count = await axios.get('http://ec2-13-125-237-51.ap-northeast-2.compute.amazonaws.com:15688/news/cnt');
+    const count = await axios.get('http://ec2-13-209-19-217.ap-northeast-2.compute.amazonaws.com:15688/news/cnt');
     return count.data;
 };
 
 module.exports.getPressNews = async function(name, page) {
-    const news = await axios.get('http://ec2-13-125-237-51.ap-northeast-2.compute.amazonaws.com:15688/press/' + encodeURI(name) + '/news?page=' + page);
+    const news = await axios.get('http://ec2-13-209-19-217.ap-northeast-2.compute.amazonaws.com:15688/press/' + encodeURI(name) + '/news?page=' + page);
     const res = [];
     for(const item of news.data) {
         const $ = await cheerio.load(item.contents);
@@ -112,12 +112,12 @@ module.exports.getPressNews = async function(name, page) {
 };
 
 module.exports.cntPressNews = async function(name) {
-    const cnt = await axios.get('http://ec2-13-125-237-51.ap-northeast-2.compute.amazonaws.com:15688/press/' + encodeURI(name) + '/cnt').catch(err => console.log(err));
+    const cnt = await axios.get('http://ec2-13-209-19-217.ap-northeast-2.compute.amazonaws.com:15688/press/' + encodeURI(name) + '/cnt').catch(err => console.log(err));
     return cnt.data;
 };
 
 module.exports.getTopicNews = async function(name, page)  {
-    const news = await axios.get('http://ec2-13-125-237-51.ap-northeast-2.compute.amazonaws.com:15688/topic/' + encodeURI(name) + '/news?page=' + page);
+    const news = await axios.get('http://ec2-13-209-19-217.ap-northeast-2.compute.amazonaws.com:15688/topic/' + encodeURI(name) + '/news?page=' + page);
     const res = [];
     for(const item of news.data) {
         const $ = await cheerio.load(item.contents);
@@ -146,12 +146,12 @@ module.exports.getTopicNews = async function(name, page)  {
 };
 
 module.exports.cntTopicNews = async function(name)  {
-    const cnt = await axios.get('http://ec2-13-125-237-51.ap-northeast-2.compute.amazonaws.com:15688/topic/' + encodeURI(name) + '/cnt').catch(err => console.log(err));
+    const cnt = await axios.get('http://ec2-13-209-19-217.ap-northeast-2.compute.amazonaws.com:15688/topic/' + encodeURI(name) + '/cnt').catch(err => console.log(err));
     return cnt.data;
 };
 
 module.exports.getMyNewsByPress = async function(id, page)  {
-    const news = await axios.get('http://ec2-13-125-237-51.ap-northeast-2.compute.amazonaws.com:15688/main/press?id=' + id + '&page=' + page);
+    const news = await axios.get('http://ec2-13-209-19-217.ap-northeast-2.compute.amazonaws.com:15688/main/press?id=' + id + '&page=' + page);
     const res = [];
     for(const item of news.data) {
         const $ = await cheerio.load(item.contents);
@@ -180,7 +180,7 @@ module.exports.getMyNewsByPress = async function(id, page)  {
 };
 
 module.exports.getMyNewsTopic = async function(id, page)  {
-    const news = await axios.get('http://ec2-13-125-237-51.ap-northeast-2.compute.amazonaws.com:15688/main/topic?id=' + id + '&page=' + page);
+    const news = await axios.get('http://ec2-13-209-19-217.ap-northeast-2.compute.amazonaws.com:15688/main/topic?id=' + id + '&page=' + page);
     const res = [];
     for(const item of news.data) {
         const $ = await cheerio.load(item.contents);
@@ -209,7 +209,7 @@ module.exports.getMyNewsTopic = async function(id, page)  {
 };
 
 module.exports.getNewsLe = async function(id, uId)  {
-    const newsWrapper = await axios.get("http://ec2-13-125-237-51.ap-northeast-2.compute.amazonaws.com:15688/news/" + id);
+    const newsWrapper = await axios.get("http://ec2-13-209-19-217.ap-northeast-2.compute.amazonaws.com:15688/news/" + id);
     const news = newsWrapper.data;
     const $ = await cheerio.load(news.contents);
     const minus = $('div.vod_area').html();
@@ -238,12 +238,12 @@ module.exports.getNewsLe = async function(id, uId)  {
 
 
 async function checkSave(uId, nId) {
-    const res = await axios.get(`http://ec2-13-125-237-51.ap-northeast-2.compute.amazonaws.com:15688/news/save/chk?uId=${uId}&nId=${nId}`);
+    const res = await axios.get(`http://ec2-13-209-19-217.ap-northeast-2.compute.amazonaws.com:15688/news/save/chk?uId=${uId}&nId=${nId}`);
     return res.data;
 }
 
 module.exports.getNewsReply = async (id) => {
-    const reply = await axios.get("http://ec2-13-125-237-51.ap-northeast-2.compute.amazonaws.com:15688/news/"+ id + "/reply"  + "?page=0");
+    const reply = await axios.get("http://ec2-13-209-19-217.ap-northeast-2.compute.amazonaws.com:15688/news/"+ id + "/reply"  + "?page=0");
     const res = [];
     for(const item of reply.data) {
         if(!(item.createdDate[5])) item.createdDate[5] = '00';
@@ -263,7 +263,7 @@ module.exports.getNewsReply = async (id) => {
 }
 
 module.exports.getNewsReplyCnt = async (id) => {
-    const reply = await axios.get("http://ec2-13-125-237-51.ap-northeast-2.compute.amazonaws.com:15688/news/"+ id + "/reply/cnt");
+    const reply = await axios.get("http://ec2-13-209-19-217.ap-northeast-2.compute.amazonaws.com:15688/news/"+ id + "/reply/cnt");
     console.log(reply.data);
     return reply.data;
 }
@@ -279,13 +279,13 @@ module.exports.saveNewsReply = async (newsId, userId, contents) => {
             'dataType': 'json',
             'Content-type' : 'application/json; charset=utf-8',
         },
-        url: 'http://ec2-13-125-237-51.ap-northeast-2.compute.amazonaws.com:15688/news/' + newsId + '/reply',
+        url: 'http://ec2-13-209-19-217.ap-northeast-2.compute.amazonaws.com:15688/news/' + newsId + '/reply',
         data: data,
     }).catch(err => console.log(err));
 }
 
 module.exports.getReplyContents = async (id) => {
-    const contents = await axios.get('http://ec2-13-125-237-51.ap-northeast-2.compute.amazonaws.com:15688/news/reply/' + id);
+    const contents = await axios.get('http://ec2-13-209-19-217.ap-northeast-2.compute.amazonaws.com:15688/news/reply/' + id);
     return contents.data;
 }
 
@@ -299,19 +299,19 @@ module.exports.updateReplyContents = async (id, contents) => {
             'dataType': 'json',
             'Content-type' : 'application/json; charset=utf-8',
         },
-        url: 'http://ec2-13-125-237-51.ap-northeast-2.compute.amazonaws.com:15688/news/reply/' + id,
+        url: 'http://ec2-13-209-19-217.ap-northeast-2.compute.amazonaws.com:15688/news/reply/' + id,
         data: JSON.stringify(data),
     }).catch(err => console.log(err));
-    const reply = await axios.get('http://ec2-13-125-237-51.ap-northeast-2.compute.amazonaws.com:15688/news/reply/' + id);
+    const reply = await axios.get('http://ec2-13-209-19-217.ap-northeast-2.compute.amazonaws.com:15688/news/reply/' + id);
     return reply.data;
 }
 
 module.exports.deleteReply = async (id) => {
-    await axios.delete('http://ec2-13-125-237-51.ap-northeast-2.compute.amazonaws.com:15688/news/reply/' + id);
+    await axios.delete('http://ec2-13-209-19-217.ap-northeast-2.compute.amazonaws.com:15688/news/reply/' + id);
 }
 
 module.exports.getAddReply = async (id, page) => {
-    const reply = await axios.get("http://ec2-13-125-237-51.ap-northeast-2.compute.amazonaws.com:15688/news/"+ id + "/reply"  + "?page=" + page);
+    const reply = await axios.get("http://ec2-13-209-19-217.ap-northeast-2.compute.amazonaws.com:15688/news/"+ id + "/reply"  + "?page=" + page);
     const res = [];
     for(const item of reply.data) {
         if(!(item.createdDate[5])) item.createdDate[5] = '00';
@@ -341,24 +341,24 @@ module.exports.saveNews = async (uId, nId) => {
             'dataType': 'json',
             'Content-type' : 'application/json; charset=utf-8',
         },
-        url: 'http://ec2-13-125-237-51.ap-northeast-2.compute.amazonaws.com:15688/news/save',
+        url: 'http://ec2-13-209-19-217.ap-northeast-2.compute.amazonaws.com:15688/news/save',
         data: data,
     }).catch(err => console.log(err));
     return saveNews.data;
 }
 
 module.exports.deleteNews = async (id) => {
-    const del = await axios.delete('http://ec2-13-125-237-51.ap-northeast-2.compute.amazonaws.com:15688/news/save/' + id);
+    const del = await axios.delete('http://ec2-13-209-19-217.ap-northeast-2.compute.amazonaws.com:15688/news/save/' + id);
     return del.data;
 }
 
 module.exports.cntSaveNews = async (id) => {
-    const cnt = await axios.get('http://ec2-13-125-237-51.ap-northeast-2.compute.amazonaws.com:15688/news/save/cnt?id=' + id);
+    const cnt = await axios.get('http://ec2-13-209-19-217.ap-northeast-2.compute.amazonaws.com:15688/news/save/cnt?id=' + id);
     return cnt.data;
 }
 
 module.exports.getSaveNews = async (id, page) => {
-    const news = await axios.get('http://ec2-13-125-237-51.ap-northeast-2.compute.amazonaws.com:15688/news/save/get?page=' + page + '&id=' + id)
+    const news = await axios.get('http://ec2-13-209-19-217.ap-northeast-2.compute.amazonaws.com:15688/news/save/get?page=' + page + '&id=' + id)
         .catch(err => console.log(err));
     const res = [];
     for(const item of news.data) {

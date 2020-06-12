@@ -96,7 +96,7 @@ const checkNews = async (list) => {
 }
 
 const cntHref = async (href) => {
-    const res = await axios.get('http://ec2-13-125-237-51.ap-northeast-2.compute.amazonaws.com:15688/news/chk?href=' + href.replace(/&/g,"%26"));
+    const res = await axios.get('http://ec2-13-209-19-217.ap-northeast-2.compute.amazonaws.com:15688/news/chk?href=' + href.replace(/&/g,"%26"));
     return res.data;
 }
 

@@ -19,8 +19,8 @@ function checkFollow(list, item) {
 }
 const main = {
     getPressList : async (id) => {
-        const press = await axios.get('http://ec2-13-125-237-51.ap-northeast-2.compute.amazonaws.com:15688/press');
-        const followListWrapper = await axios.get('http://ec2-13-125-237-51.ap-northeast-2.compute.amazonaws.com:15688/fav/press?id=' + id);
+        const press = await axios.get('http://ec2-13-209-19-217.ap-northeast-2.compute.amazonaws.com:15688/press');
+        const followListWrapper = await axios.get('http://ec2-13-209-19-217.ap-northeast-2.compute.amazonaws.com:15688/fav/press?id=' + id);
         const followList = await makeString(followListWrapper.data);
         const res = [];
         for(const item of press.data) {
@@ -34,8 +34,8 @@ const main = {
         return res;
     },
     getPressListOrderByFollow : async (id) => {
-        const press = await axios.get('http://ec2-13-125-237-51.ap-northeast-2.compute.amazonaws.com:15688/press/follow');
-        const followListWrapper = await axios.get('http://ec2-13-125-237-51.ap-northeast-2.compute.amazonaws.com:15688/fav/press?id=' + id);
+        const press = await axios.get('http://ec2-13-209-19-217.ap-northeast-2.compute.amazonaws.com:15688/press/follow');
+        const followListWrapper = await axios.get('http://ec2-13-209-19-217.ap-northeast-2.compute.amazonaws.com:15688/fav/press?id=' + id);
         const followList = await makeString(followListWrapper.data);
         const res = [];
         for(const item of press.data) {
@@ -49,17 +49,17 @@ const main = {
         return res;
     },
     add : async (name, uid) => {
-        const url = "http://ec2-13-125-237-51.ap-northeast-2.compute.amazonaws.com:15688/press/add?name=" + encodeURI(name) + "&uid=" + uid;
+        const url = "http://ec2-13-209-19-217.ap-northeast-2.compute.amazonaws.com:15688/press/add?name=" + encodeURI(name) + "&uid=" + uid;
         const press = await axios.get(url).catch(err => console.log(err));
         console.log(press);
         return press.data;
     },
     remove : async (name, uid) => {
-        const url = "http://ec2-13-125-237-51.ap-northeast-2.compute.amazonaws.com:15688/press/remove?name=" + encodeURI(name) + "&uid=" + uid;
+        const url = "http://ec2-13-209-19-217.ap-northeast-2.compute.amazonaws.com:15688/press/remove?name=" + encodeURI(name) + "&uid=" + uid;
         await axios.get(url).catch(e => console.log(e));
     },
     getPress : async (name) => {
-        const url = "http://ec2-13-125-237-51.ap-northeast-2.compute.amazonaws.com:15688/press/" + encodeURI(name);
+        const url = "http://ec2-13-209-19-217.ap-northeast-2.compute.amazonaws.com:15688/press/" + encodeURI(name);
         const press = await axios.get(url).catch(e => console.log(e));
         return press.data;
     }
