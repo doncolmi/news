@@ -246,11 +246,10 @@ module.exports.getNewsReply = async (id) => {
     const reply = await axios.get("http://ec2-13-209-19-217.ap-northeast-2.compute.amazonaws.com:15688/news/"+ id + "/reply"  + "?page=0");
     const res = [];
     for(const item of reply.data) {
-        if(!(item.createdDate[5])) item.createdDate[5] = '00';
         if((item.createdDate[1] * 1) < 10) {
             item.createdDate[1] = '0' + item.createdDate[1];
         }
-        const time = `${item.createdDate[0]}-${item.createdDate[1]}-${item.createdDate[2]}T${item.createdDate[3]}:${item.createdDate[4]}:${item.createdDate[5]}`;
+        const time = `${item.createdDate[0]}-${item.createdDate[1]}-${item.createdDate[2]}T${item.createdDate[3]}:${item.createdDate[4]}:00`;
         const data = {
             id : item.id,
             name : item.user.uid,
