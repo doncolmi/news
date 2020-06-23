@@ -1,68 +1,81 @@
 const axios = require("axios");
 
-
 const makeString = (list) => {
-    let lists;
-    try{
-        lists = [...list];
-    } catch (e) {
-        return ["das"];
-    }
-    for(let item of lists) {
-        item = item + "";
-    }
-    return lists;
-}
+  let lists;
+  try {
+    lists = [...list];
+  } catch (e) {
+    return ["das"];
+  }
+  for (let item of lists) {
+    item = item + "";
+  }
+  return lists;
+};
 
 function checkFollow(list, item) {
-    return list.indexOf(item);
+  return list.indexOf(item);
 }
 const main = {
-    getPressList : async (id) => {
-        const press = await axios.get('http://ec2-13-209-19-217.ap-northeast-2.compute.amazonaws.com:15688/press');
-        const followListWrapper = await axios.get('http://ec2-13-209-19-217.ap-northeast-2.compute.amazonaws.com:15688/fav/press?id=' + id);
-        const followList = await makeString(followListWrapper.data);
-        const res = [];
-        for(const item of press.data) {
-            const data = {
-                name : item.name,
-                follow : item.follow + "개",
-                checkFollow : await checkFollow(followList, item.name)
-            }
-            res.push(data);
-        }
-        return res;
-    },
-    getPressListOrderByFollow : async (id) => {
-        const press = await axios.get('http://ec2-13-209-19-217.ap-northeast-2.compute.amazonaws.com:15688/press/follow');
-        const followListWrapper = await axios.get('http://ec2-13-209-19-217.ap-northeast-2.compute.amazonaws.com:15688/fav/press?id=' + id);
-        const followList = await makeString(followListWrapper.data);
-        const res = [];
-        for(const item of press.data) {
-            const data = {
-                name : item.name,
-                follow : item.follow + "개",
-                checkFollow : await checkFollow(followList, item.name)
-            }
-            res.push(data);
-        }
-        return res;
-    },
-    add : async (name, uid) => {
-        const url = "http://ec2-13-209-19-217.ap-northeast-2.compute.amazonaws.com:15688/press/add?name=" + encodeURI(name) + "&uid=" + uid;
-        const press = await axios.get(url).catch(err => console.log(err));
-        console.log(press);
-        return press.data;
-    },
-    remove : async (name, uid) => {
-        const url = "http://ec2-13-209-19-217.ap-northeast-2.compute.amazonaws.com:15688/press/remove?name=" + encodeURI(name) + "&uid=" + uid;
-        await axios.get(url).catch(e => console.log(e));
-    },
-    getPress : async (name) => {
-        const url = "http://ec2-13-209-19-217.ap-northeast-2.compute.amazonaws.com:15688/press/" + encodeURI(name);
-        const press = await axios.get(url).catch(e => console.log(e));
-        return press.data;
+  getPressList: async (id) => {
+    const press = await axios.get(process.env.ServerURL + "/press");
+    const followListWrapper = await axios.get(
+      process.env.ServerURL + "/fav/press?id=" + id
+    );
+    const followList = await makeString(followListWrapper.data);
+    const res = [];
+    for (const item of press.data) {
+      const data = {
+        name: item.name,
+        follow: item.follow + "개",
+        checkFollow: await checkFollow(followList, item.name),
+      };
+      res.push(data);
     }
+    return res;
+  },
+  getPressListOrderByFollow: async (id) => {
+    const press = await axios.get(process.env.ServerURL + "/press/follow");
+    const followListWrapper = await axios.get(
+      process.env.ServerURL + "/fav/press?id=" + id
+    );
+    const followList = await makeString(followListWrapper.data);
+    const res = [];
+    for (const item of press.data) {
+      const data = {
+        name: item.name,
+        follow: item.follow + "개",
+        checkFollow: await checkFollow(followList, item.name),
+      };
+      res.push(data);
+    }
+    return res;
+  },
+  add: async (name, uid) => {
+    const url =
+      process.env.ServerURL +
+      "/press/add?name=" +
+      encodeURI(name) +
+      "&uid=" +
+      uid;
+    const press = await axios.get(url).catch((err) => console.log(err));
+    console.log(press);
+    return press.data;
+  },
+  remove: async (name, uid) => {
+    const url =
+      process.env.ServerURL +
+      "/press/remove?name=" +
+      encodeURI(name) +
+      "&uid=" +
+      uid;
+    await axios.get(url).catch((e) => console.log(e));
+  },
+  getPress: async (name) => {
+    const url = process.env.ServerURL + "/press/" + encodeURI(name);
+    const press = await axios.get(url).catch((e) => console.log(e));
+    return press.data;
+  },
 };
 
 module.exports = main;
