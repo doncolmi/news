@@ -30,7 +30,9 @@ class News {
         dataType: "json",
         contentType: "application/json; charset=utf-8",
       },
-    });
+    }).catch((err) => {
+		console.log("중복된 기사를 배제했습니다.");
+	});
   }
 }
 
