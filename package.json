@@ -21,7 +21,7 @@
     "node-cron": "^2.0.3",
     "nodemailer": "^6.4.6",
     "nodemon": "^2.0.2",
-    "pug": "2.0.0-beta11",
+    "pug": "3.0.1",
     "redis": "^3.0.2",
     "dotenv": "^8.2.0"
   }
